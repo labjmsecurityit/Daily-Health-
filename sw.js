@@ -1,16 +1,16 @@
-const CACHE_NAME = 'daily-health-v1';
+const CACHE_NAME = 'daily-health-v2';
 const ASSETS = [
   '/Daily-Health-/',
   '/Daily-Health-/index.html',
+  '/Daily-Health-/dieta.html',
+  '/Daily-Health-/treino.html',
   '/Daily-Health-/manifest.json',
   '/Daily-Health-/icon-192.png',
   '/Daily-Health-/icon-512.png'
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
-  );
+  e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(ASSETS)));
   self.skipWaiting();
 });
 
