@@ -1,0 +1,25 @@
+{
+  "name": "Jardeson — Dieta & Suplementos",
+  "short_name": "Daily Health",
+  "description": "Guia de dieta, suplementação e treino",
+  "start_url": "/Daily-Health-/",
+  "scope": "/Daily-Health-/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0D1117",
+  "theme_color": "#F0A500",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
