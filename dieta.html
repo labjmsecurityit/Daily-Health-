@@ -3,140 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Jardeson — Dieta & Suplementos</title>
+<title>Dieta & Suplementos — Daily Health</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#F0A500">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Daily Health">
+<link rel="apple-touch-icon" href="icon-192.png">
 <style>
-  :root {
-    --bg: #0D1117;
-    --card: #161B22;
-    --card2: #1C2128;
-    --accent: #F0A500;
-    --green: #2EA043;
-    --blue: #3B82F6;
-    --red: #EF4444;
-    --purple: #A855F7;
-    --text: #E6EDF3;
-    --muted: #8B949E;
-    --border: #30363D;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:14px; line-height:1.5; }
+:root {
+  --bg:#0D1117;--card:#161B22;--card2:#1C2128;
+  --accent:#F0A500;--green:#2EA043;--blue:#3B82F6;
+  --red:#EF4444;--purple:#A855F7;--cyan:#06B6D4;
+  --text:#E6EDF3;--muted:#8B949E;--border:#30363D;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.5;}
 
-  /* ── HEADER ── */
-  .header { background:linear-gradient(135deg,#1a1200,#0D1117); padding:20px 16px 16px; border-bottom:2px solid var(--accent); text-align:center; }
-  .header h1 { font-size:20px; font-weight:800; color:var(--accent); letter-spacing:1px; }
-  .header p { font-size:11px; color:var(--muted); margin-top:4px; }
+/* HEADER */
+.header{background:linear-gradient(135deg,#1a1200,#0D1117);padding:14px 16px 12px;border-bottom:2px solid var(--accent);display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;}
+.header a{color:var(--muted);font-size:20px;text-decoration:none;line-height:1;}
+.header h1{font-size:16px;font-weight:800;color:var(--accent);letter-spacing:1px;flex:1;}
+.header-sub{font-size:10px;color:var(--muted);}
 
-  /* ── NAV TABS ── */
-  .tabs { display:flex; background:var(--card); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:99; }
-  .tab { flex:1; padding:12px 4px; text-align:center; font-size:11px; font-weight:700; color:var(--muted); border:none; background:none; cursor:pointer; letter-spacing:.5px; text-transform:uppercase; border-bottom:2px solid transparent; transition:.2s; }
-  .tab.active { color:var(--accent); border-bottom-color:var(--accent); }
+/* TABS */
+.tabs{display:flex;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:49px;z-index:99;overflow-x:auto;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;padding:11px 10px;text-align:center;font-size:10px;font-weight:700;color:var(--muted);border:none;background:none;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;border-bottom:2px solid transparent;transition:.2s;white-space:nowrap;}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
 
-  /* ── SECTIONS ── */
-  .section { display:none; padding:12px 12px 80px; }
-  .section.active { display:block; }
+/* SECTIONS */
+.section{display:none;padding:12px 12px 80px;}
+.section.active{display:block;}
 
-  /* ── CARDS ── */
-  .card { background:var(--card); border-radius:10px; border:1px solid var(--border); margin-bottom:10px; overflow:hidden; }
-  .card-header { padding:10px 14px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
-  .card-header .icon { font-size:18px; }
-  .card-header .title { font-size:13px; font-weight:700; }
-  .card-header .time { font-size:11px; color:var(--accent); font-weight:700; margin-left:auto; }
-  .card-header .kcal { font-size:11px; color:var(--muted); }
-  .card-body { padding:10px 14px; }
+/* TOTALS */
+.total-bar{background:var(--card2);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;margin-bottom:10px;border:1px solid var(--border);}
+.total-item{text-align:center;}
+.total-num{font-size:16px;font-weight:800;color:var(--accent);}
+.total-label{font-size:10px;color:var(--muted);text-transform:uppercase;}
+.macros{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.macro-pill{flex:1;min-width:70px;background:var(--card2);border-radius:8px;padding:8px 6px;text-align:center;border:1px solid var(--border);}
+.macro-pill .mp-val{font-size:15px;font-weight:800;}
+.macro-pill .mp-lbl{font-size:10px;color:var(--muted);}
+.macro-pill.prot .mp-val{color:#F0A500;}
+.macro-pill.carb .mp-val{color:#3B82F6;}
+.macro-pill.fat  .mp-val{color:#A855F7;}
+.macro-pill.kcal .mp-val{color:#2EA043;}
 
-  /* ── MEAL ITEMS ── */
-  .meal-item { display:flex; align-items:flex-start; gap:8px; padding:6px 0; border-bottom:1px solid var(--border); }
-  .meal-item:last-child { border-bottom:none; }
-  .meal-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; flex-shrink:0; }
-  .meal-text { flex:1; font-size:13px; color:var(--text); }
-  .meal-qty { font-size:11px; color:var(--muted); white-space:nowrap; }
+/* CARDS */
+.card{background:var(--card);border-radius:10px;border:1px solid var(--border);margin-bottom:10px;overflow:hidden;}
+.card-header{padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);}
+.card-header .icon{font-size:18px;}
+.card-header .title{font-size:13px;font-weight:700;flex:1;}
+.card-header .time{font-size:11px;color:var(--accent);font-weight:700;}
+.card-header .kcal{font-size:11px;color:var(--muted);margin-left:6px;}
+.card-body{padding:10px 14px;}
 
-  /* ── BADGES ── */
-  .badge { display:inline-block; padding:2px 8px; border-radius:20px; font-size:10px; font-weight:700; letter-spacing:.5px; }
-  .badge-green { background:#0d2818; color:var(--green); border:1px solid var(--green); }
-  .badge-orange { background:#1a0f00; color:var(--accent); border:1px solid var(--accent); }
-  .badge-blue { background:#0d1a2e; color:var(--blue); border:1px solid var(--blue); }
-  .badge-red { background:#1a0808; color:var(--red); border:1px solid var(--red); }
-  .badge-purple { background:#160d22; color:var(--purple); border:1px solid var(--purple); }
+/* MEAL ITEMS */
+.meal-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);}
+.meal-item:last-child{border-bottom:none;}
+.meal-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:6px;flex-shrink:0;}
+.meal-text{flex:1;font-size:13px;}
+.meal-qty{font-size:11px;color:var(--muted);white-space:nowrap;}
+.meal-note{font-size:11px;color:var(--muted);margin-top:2px;}
 
-  /* ── SUPPLEMENT CARDS ── */
-  .supp-card { background:var(--card); border-radius:10px; border:1px solid var(--border); margin-bottom:10px; }
-  .supp-header { padding:12px 14px; display:flex; align-items:center; gap:10px; }
-  .supp-emoji { font-size:22px; }
-  .supp-info { flex:1; }
-  .supp-name { font-size:14px; font-weight:800; color:var(--text); }
-  .supp-sub { font-size:11px; color:var(--muted); margin-top:1px; }
-  .supp-body { padding:0 14px 12px; }
-  .supp-row { display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:1px solid var(--border); }
-  .supp-row:last-child { border-bottom:none; }
-  .supp-label { font-size:11px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
-  .supp-value { font-size:12px; color:var(--text); text-align:right; max-width:65%; }
-  .supp-value.highlight { color:var(--accent); font-weight:700; }
-  .supp-value.green { color:var(--green); font-weight:700; }
+/* SECTION TITLE */
+.section-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin:16px 0 8px;padding-left:2px;}
 
-  /* ── NATURAL ALT BOX ── */
-  .nat-box { background:#0d1a12; border:1px solid var(--green); border-radius:8px; padding:10px 12px; margin-top:8px; }
-  .nat-box .nat-title { font-size:11px; font-weight:700; color:var(--green); margin-bottom:4px; text-transform:uppercase; letter-spacing:.5px; }
-  .nat-box p { font-size:12px; color:#cde8d4; }
+/* ALERTS */
+.alert{border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:12px;}
+.alert-orange{background:#1a1000;border:1px solid var(--accent);color:#f5d78e;}
+.alert-red{background:#1a0808;border:1px solid var(--red);color:#f5a0a0;}
+.alert-green{background:#0a1a10;border:1px solid var(--green);color:#a0e8b0;}
+.alert-blue{background:#080f1a;border:1px solid var(--blue);color:#a0c8f5;}
+.alert-purple{background:#130a1f;border:1px solid var(--purple);color:#d4b0f5;}
+.alert strong{font-weight:800;}
 
-  /* ── ALERT BOX ── */
-  .alert { border-radius:8px; padding:10px 12px; margin-bottom:10px; font-size:12px; }
-  .alert-orange { background:#1a1000; border:1px solid var(--accent); color:#f5d78e; }
-  .alert-red { background:#1a0808; border:1px solid var(--red); color:#f5a0a0; }
-  .alert-green { background:#0a1a10; border:1px solid var(--green); color:#a0e8b0; }
-  .alert-blue { background:#080f1a; border:1px solid var(--blue); color:#a0c8f5; }
-  .alert strong { font-weight:800; }
+/* BADGES */
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.5px;}
+.badge-green{background:#0d2818;color:var(--green);border:1px solid var(--green);}
+.badge-orange{background:#1a0f00;color:var(--accent);border:1px solid var(--accent);}
+.badge-blue{background:#0d1a2e;color:var(--blue);border:1px solid var(--blue);}
+.badge-red{background:#1a0808;color:var(--red);border:1px solid var(--red);}
+.badge-purple{background:#160d22;color:var(--purple);border:1px solid var(--purple);}
+.badge-cyan{background:#041318;color:var(--cyan);border:1px solid var(--cyan);}
 
-  /* ── SECTION TITLE ── */
-  .section-title { font-size:11px; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1.5px; margin:16px 0 8px; padding-left:2px; }
+/* SUPP CARDS */
+.supp-card{background:var(--card);border-radius:10px;border:1px solid var(--border);margin-bottom:10px;}
+.supp-header{padding:12px 14px;display:flex;align-items:center;gap:10px;}
+.supp-emoji{font-size:22px;}
+.supp-info{flex:1;}
+.supp-name{font-size:14px;font-weight:800;}
+.supp-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+.supp-body{padding:0 14px 12px;}
+.supp-row{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;border-bottom:1px solid var(--border);gap:8px;}
+.supp-row:last-child{border-bottom:none;}
+.supp-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0;}
+.supp-value{font-size:12px;color:var(--text);text-align:right;}
+.supp-value.hl{color:var(--accent);font-weight:700;}
+.supp-value.green{color:var(--green);font-weight:700;}
 
-  /* ── TOTAL BAR ── */
-  .total-bar { background:var(--card2); border-radius:8px; padding:10px 14px; display:flex; justify-content:space-between; margin-bottom:10px; border:1px solid var(--border); }
-  .total-item { text-align:center; }
-  .total-num { font-size:16px; font-weight:800; color:var(--accent); }
-  .total-label { font-size:10px; color:var(--muted); text-transform:uppercase; }
+/* NAT BOX */
+.nat-box{background:#0d1a12;border:1px solid var(--green);border-radius:8px;padding:10px 12px;margin-top:8px;}
+.nat-box .nat-title{font-size:11px;font-weight:700;color:var(--green);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;}
+.nat-box p{font-size:12px;color:#cde8d4;margin-top:4px;}
 
-  /* ── MACRO PILLS ── */
-  .macros { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
-  .macro-pill { flex:1; min-width:70px; background:var(--card2); border-radius:8px; padding:8px 6px; text-align:center; border:1px solid var(--border); }
-  .macro-pill .mp-val { font-size:15px; font-weight:800; }
-  .macro-pill .mp-lbl { font-size:10px; color:var(--muted); }
-  .macro-pill.prot .mp-val { color:#F0A500; }
-  .macro-pill.carb .mp-val { color:#3B82F6; }
-  .macro-pill.fat  .mp-val { color:#A855F7; }
-  .macro-pill.kcal .mp-val { color:#2EA043; }
+/* TIMING */
+.timing{display:inline-flex;align-items:center;background:#1a1200;border:1px solid var(--accent);border-radius:6px;padding:3px 8px;font-size:11px;color:var(--accent);font-weight:700;margin-bottom:6px;}
 
-  /* ── TIMING CHIP ── */
-  .timing { display:inline-flex; align-items:center; gap:4px; background:#1a1200; border:1px solid var(--accent); border-radius:6px; padding:3px 8px; font-size:11px; color:var(--accent); font-weight:700; margin-bottom:8px; }
+/* MEDIDAS TABLE */
+.med-table{width:100%;border-collapse:collapse;margin-top:8px;}
+.med-table th{background:#1a1200;color:var(--accent);font-size:10px;text-transform:uppercase;letter-spacing:.5px;padding:7px 10px;text-align:left;border-bottom:2px solid var(--accent);}
+.med-table td{padding:8px 10px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:top;}
+.med-table tr:last-child td{border-bottom:none;}
+.med-table td:first-child{font-weight:700;color:var(--text);white-space:nowrap;}
+.med-table td:nth-child(2){color:var(--accent);font-weight:700;text-align:center;}
+.med-table td:last-child{color:#cde8d4;}
 
-  /* ── DIVIDER ── */
-  .divider { height:1px; background:var(--border); margin:12px 0; }
+/* WATER */
+.water-bar{background:var(--card2);border-radius:8px;padding:12px 14px;border:1px solid var(--border);margin-bottom:10px;}
+.water-title{font-size:12px;font-weight:700;color:var(--blue);margin-bottom:8px;}
+.water-cups{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;}
+.water-cup{font-size:20px;cursor:default;}
+.water-legend{font-size:11px;color:var(--muted);}
 
-  /* ── COMING FRIDAY BANNER ── */
-  .friday-banner { background:linear-gradient(135deg,#0d1a2e,#080f1a); border:1px solid var(--blue); border-radius:8px; padding:10px 14px; margin-bottom:12px; }
-  .friday-banner .fb-title { font-size:12px; font-weight:800; color:var(--blue); margin-bottom:6px; }
-  .friday-item { display:flex; align-items:center; gap:6px; padding:4px 0; font-size:12px; }
-  .friday-item .fi-dot { width:6px; height:6px; border-radius:50%; background:var(--blue); flex-shrink:0; }
+/* TIMELINE DOT */
+.tl-item{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);}
+.tl-item:last-child{border-bottom:none;}
+.tl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.tl-body{flex:1;}
+.tl-time{font-size:11px;font-weight:700;color:var(--accent);}
+.tl-label{font-size:13px;font-weight:700;}
+.tl-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.tl-supp{font-size:11px;color:var(--red);margin-top:2px;font-weight:700;}
 
-  /* ── FOOTER NOTE ── */
-  .foot-note { font-size:10px; color:var(--muted); text-align:center; padding-top:8px; }
+/* REFEED */
+.refeed-box{background:linear-gradient(135deg,#1a0f00,#0D1117);border:1px solid var(--accent);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.refeed-title{font-size:13px;font-weight:800;color:var(--accent);margin-bottom:6px;}
+.refeed-body{font-size:12px;color:#f5d78e;line-height:1.6;}
 
-  /* ── MEDIDAS TABLE ── */
-  .med-table { width:100%; border-collapse:collapse; margin-top:8px; }
-  .med-table th { background:#1a1200; color:var(--accent); font-size:10px; text-transform:uppercase; letter-spacing:.5px; padding:7px 10px; text-align:left; border-bottom:2px solid var(--accent); }
-  .med-table td { padding:8px 10px; font-size:12px; border-bottom:1px solid var(--border); vertical-align:top; }
-  .med-table tr:last-child td { border-bottom:none; }
-  .med-table td:first-child { font-weight:700; color:var(--text); white-space:nowrap; }
-  .med-table td:nth-child(2) { color:var(--accent); font-weight:700; text-align:center; }
-  .med-table td:last-child { color:#cde8d4; }
-  .badge-friday { display:inline-block; padding:2px 8px; border-radius:20px; font-size:10px; font-weight:700; background:#080f1a; color:var(--blue); border:1px solid var(--blue); }
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:12px 0;}
+
+.foot-note{font-size:10px;color:var(--muted);text-align:center;padding-top:8px;}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>🏋️ JARDESON — GUIA RÁPIDO</h1>
-  <p>Dieta · Suplementos · Alternativas Naturais</p>
+  <a href="index.html">‹</a>
+  <div>
+    <h1>🍽️ DIETA & SUPLEMENTOS</h1>
+    <div class="header-sub">Jardeson · Plano 60 dias · Reavaliação 10/04/2026</div>
+  </div>
 </div>
 
 <div class="tabs">
@@ -144,21 +163,21 @@
   <button class="tab" onclick="showTab('suplementos')">💊 Suplem.</button>
   <button class="tab" onclick="showTab('naturais')">🥗 Naturais</button>
   <button class="tab" onclick="showTab('timing')">⏱️ Timing</button>
-  <button class="tab" onclick="showTab('manha')">🌅 Manhã</button>
+  <button class="tab" onclick="showTab('alternativos')">🔄 Alternat.</button>
+  <button class="tab" onclick="showTab('medidas')">📏 Medidas</button>
 </div>
 
-<!-- ══════════════════════════════════════
+<!-- ═══════════════════════════════
      ABA 1 — DIETA
-══════════════════════════════════════ -->
+═══════════════════════════════ -->
 <div class="section active" id="tab-dieta">
 
   <div class="total-bar">
     <div class="total-item"><div class="total-num">2.200</div><div class="total-label">kcal/dia</div></div>
-    <div class="total-item"><div class="total-num">−730</div><div class="total-label">deficit</div></div>
+    <div class="total-item"><div class="total-num">−730</div><div class="total-label">déficit</div></div>
     <div class="total-item"><div class="total-num">60</div><div class="total-label">dias</div></div>
     <div class="total-item"><div class="total-num">10/abr</div><div class="total-label">reavaliação</div></div>
   </div>
-
   <div class="macros">
     <div class="macro-pill prot"><div class="mp-val">198g</div><div class="mp-lbl">Proteína</div></div>
     <div class="macro-pill carb"><div class="mp-val">200g</div><div class="mp-lbl">Carboidrato</div></div>
@@ -166,20 +185,23 @@
     <div class="macro-pill kcal"><div class="mp-val">2200</div><div class="mp-lbl">kcal</div></div>
   </div>
 
-  <p class="section-title">📅 Dias de Treino — Seg a Sáb</p>
+  <p class="section-title">📅 Dias de treino — Seg a Sex (padrão 16h40)</p>
 
-  <!-- Café da manhã -->
+  <!-- Café -->
   <div class="card">
     <div class="card-header">
       <span class="icon">☀️</span>
       <span class="title">Café da Manhã</span>
-      <span class="time">07h–07h30</span>
+      <span class="time">07h00</span>
       <span class="kcal">390 kcal</span>
     </div>
     <div class="card-body">
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Omelete de claras (4 claras + 1 ovo inteiro)</div><div class="meal-qty">5 ovos</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Aveia com chia</div><div class="meal-qty">40g + 10g</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Banana</div><div class="meal-qty">1 unid.</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Omelete — 4 claras + 1 ovo inteiro</div><div class="meal-qty">5 ovos</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Aveia + canela em pó</div><div class="meal-qty">40g + 1 col chá</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Chia</div><div class="meal-qty">10g</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Fruta — banana, maçã ou laranja</div><div class="meal-qty">1 unid.</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#3B82F6"></div><div class="meal-text" style="color:#3B82F6"><strong>💊 Artiflex + D3 Synergy</strong> — tomar aqui COM o ovo (gordura)</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Café ou chá sem açúcar</div><div class="meal-qty">livre</div></div>
     </div>
   </div>
 
@@ -188,12 +210,12 @@
     <div class="card-header">
       <span class="icon">🥚</span>
       <span class="title">Lanche da Manhã</span>
-      <span class="time">10h–10h30</span>
-      <span class="kcal">260 kcal</span>
+      <span class="time">10h00</span>
+      <span class="kcal">240 kcal</span>
     </div>
     <div class="card-body">
       <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">2 ovos cozidos ou mexidos</div><div class="meal-qty">2 ovos</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Pão integral</div><div class="meal-qty">1 fatia</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Aveia seca OU fruta (maçã ou laranja)</div><div class="meal-qty">30g aveia</div></div>
       <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Café ou chá sem açúcar</div><div class="meal-qty">livre</div></div>
     </div>
   </div>
@@ -203,14 +225,15 @@
     <div class="card-header">
       <span class="icon">🍱</span>
       <span class="title">Almoço</span>
-      <span class="time">12h30–13h</span>
-      <span class="kcal">580 kcal</span>
+      <span class="time">12h30</span>
+      <span class="kcal">570 kcal</span>
     </div>
     <div class="card-body">
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Arroz integral</div><div class="meal-qty">80g</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Feijão preto</div><div class="meal-qty">80g</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Frango grelhado/assado</div><div class="meal-qty">150g</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Salada verde + azeite</div><div class="meal-qty">livre + 1 fio</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Frango grelhado/assado <strong>OU sardinha (3–4x/semana)</strong></div><div class="meal-qty">150g</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Feijão ou lentilha cozido</div><div class="meal-qty">80g</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Arroz integral <strong>OU</strong> batata doce cozida</div><div class="meal-qty">80g</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Salada verde à vontade</div><div class="meal-qty">livre</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Azeite de oliva</div><div class="meal-qty">1 col chá (5g)</div></div>
     </div>
   </div>
 
@@ -219,31 +242,35 @@
     <div class="card-header" style="border-bottom-color:#F0A500">
       <span class="icon">⚡</span>
       <span class="title" style="color:#F0A500">Pré-Treino</span>
-      <span class="time">16h–16h20</span>
-      <span class="kcal">290 kcal</span>
+      <span class="time">16h00</span>
+      <span class="kcal">280 kcal</span>
     </div>
     <div class="card-body">
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Batata doce cozida</strong></div><div class="meal-qty">100g</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Frango ou ovo cozido</strong></div><div class="meal-qty">80g</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text" style="color:#F0A500">Lipo Dry</div><div class="meal-qty">conforme bula</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Batata doce cozida + canela em pó</div><div class="meal-qty">100g + 1 pitada</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Frango cozido <strong>OU</strong> 2 ovos cozidos</div><div class="meal-qty">80g frango</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#EF4444"></div><div class="meal-text" style="color:#EF4444"><strong>🔥 Lipo Dry</strong> — tomar às 16h00 com 500ml água</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#F0A500"></div><div class="meal-text" style="color:#F0A500"><strong>L-Taurina 2–3g</strong> em água (Opção A — pré-treino)</div></div>
     </div>
   </div>
 
   <!-- Treino -->
-  <div class="alert alert-orange">🏋️ <strong>TREINO: 16h50 – 18h30</strong></div>
+  <div class="alert alert-orange" style="text-align:center;font-size:13px">
+    🏋️ <strong>TREINO — 16h40 até 18h30</strong>
+  </div>
 
   <!-- Pós-treino -->
   <div class="card">
     <div class="card-header" style="border-bottom-color:#2EA043">
       <span class="icon">💪</span>
-      <span class="title" style="color:#2EA043">Pós-Treino IMEDIATO</span>
-      <span class="time">18h30–19h</span>
+      <span class="title" style="color:#2EA043">Pós-Treino Imediato</span>
+      <span class="time">18h30</span>
       <span class="kcal">260 kcal</span>
     </div>
     <div class="card-body">
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Whey Protein</strong></div><div class="meal-qty">1 scoop (30-35g)</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Creatina Monohidratada</strong></div><div class="meal-qty">5g</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>L-Taurina</strong></div><div class="meal-qty">2-3g</div></div>
+      <div class="alert alert-green" style="font-size:11px;margin-bottom:8px">⚠️ Timing crítico — não atrasar mais de 30 min</div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Whey Protein</strong></div><div class="meal-qty">1 scoop em água</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Creatina</strong></div><div class="meal-qty">5g (1 col chá rasa)</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">L-Taurina (Opção B — se não tomou no pré)</div><div class="meal-qty">2–3g</div></div>
       <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Banana</div><div class="meal-qty">1 unid.</div></div>
     </div>
   </div>
@@ -252,15 +279,16 @@
   <div class="card">
     <div class="card-header">
       <span class="icon">🍗</span>
-      <span class="title">Janta <span style="color:#F0A500;font-size:10px">REFEIÇÃO PRINCIPAL</span></span>
-      <span class="time">19h30–20h</span>
-      <span class="kcal">480 kcal</span>
+      <span class="title">Janta</span>
+      <span class="time">19h30</span>
+      <span class="kcal">420 kcal</span>
     </div>
     <div class="card-body">
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Frango (assado / grelhado / cozido)</div><div class="meal-qty">150g</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Arroz branco ou batata cozida</div><div class="meal-qty">60g</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Legumes refogados (cenoura, chuchu, abobrinha, couve)</div><div class="meal-qty">200g</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">1 ovo + azeite</div><div class="meal-qty">1 ovo</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Frango ou carne (patinho, coxão mole)</div><div class="meal-qty">150g</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Feijão ou lentilha</div><div class="meal-qty">80g</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Batata doce <strong>OU</strong> arroz integral</div><div class="meal-qty">60g</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Legumes à vontade (cenoura, chuchu, abobrinha)</div><div class="meal-qty">livre</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">1 ovo inteiro + azeite</div><div class="meal-qty">1 ovo + 1 col chá</div></div>
     </div>
   </div>
 
@@ -269,681 +297,493 @@
     <div class="card-header" style="border-bottom-color:#A855F7">
       <span class="icon">🌙</span>
       <span class="title" style="color:#A855F7">Lanche Anti-Compulsão</span>
-      <span class="time">22h</span>
-      <span class="kcal">220 kcal</span>
+      <span class="time">22h00</span>
+      <span class="kcal">170 kcal</span>
     </div>
     <div class="card-body">
-      <div class="alert alert-blue" style="margin-bottom:8px;font-size:11px">⚠️ <strong>NUNCA PULE</strong> — elimina a compulsão noturna · escolha 1 fonte de caseína</div>
-      <div class="meal-item"><div class="meal-dot" style="background:#A855F7"></div><div class="meal-text"><strong>Opção A — Iogurte grego natural</strong> (sem açúcar)</div><div class="meal-qty">200g · ~20g prot.</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#A855F7"></div><div class="meal-text"><strong>Opção B — Ricota</strong> (amassada com garfo)</div><div class="meal-qty">200g · ~22g prot.</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#A855F7"></div><div class="meal-text"><strong>Opção C — Leite morno integral</strong> (+ cacau na própria xícara)</div><div class="meal-qty">300ml · ~10g prot.</div></div>
+      <div class="alert alert-purple" style="font-size:11px;margin-bottom:8px">⚠️ <strong>NUNCA PULAR</strong> — elimina compulsão noturna · escolha 1 opção</div>
+      <div class="meal-item"><div class="meal-dot" style="background:#A855F7"></div><div class="meal-text"><strong>Opção A — Iogurte natural zero</strong></div><div class="meal-qty">200g · ~18g prot.</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#A855F7"></div><div class="meal-text"><strong>Opção B — Creme de ricota</strong></div><div class="meal-qty">100g · ~11g prot.</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#A855F7"></div><div class="meal-text"><strong>Opção C — Leite desnatado morno</strong></div><div class="meal-qty">300ml · ~10g prot.</div></div>
       <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Chia</div><div class="meal-qty">10g</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Cacau em pó 70%</div><div class="meal-qty">1 col. chá</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Cacau em pó 70% + canela em pó</div><div class="meal-qty">1 col chá cada</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#A855F7"></div><div class="meal-text" style="color:#A855F7"><strong>⏳ Aguardar 20 min → ZMA</strong></div></div>
     </div>
   </div>
 
+  <!-- Refeed -->
+  <p class="section-title">🎯 Refeed Controlado — 1x/semana</p>
+  <div class="refeed-box">
+    <div class="refeed-title">🍮 Doce de Leite — pós-treino pesado</div>
+    <div class="refeed-body">
+      <strong>Quando:</strong> após o treino mais intenso da semana (ex: Treino A — Pernas ou D — Puxar)<br>
+      <strong>Quantidade:</strong> 2 colheres de sopa rasas (~30g · ~110 kcal)<br>
+      <strong>Como usar:</strong> misturar no Whey pós-treino como fonte rápida de carboidrato<br>
+      <strong>Por que funciona:</strong> o pico de insulina pós-treino pesado direciona os nutrientes para o músculo em vez de estocar como gordura<br>
+      <strong>Frequência máxima:</strong> 1x por semana · não usar em dias de treino leve (F) ou cardio
+    </div>
+  </div>
+
+  <!-- Domingo -->
   <p class="section-title">🌅 Domingo — Descanso Total</p>
   <div class="card">
     <div class="card-body">
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Café da manhã: ovos mexidos + aveia + fruta</div><div class="meal-qty">350 kcal</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Lanche: iogurte grego ou ricota + torrada integral</div><div class="meal-qty">230 kcal</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Almoço: frango + salada + arroz + feijão + azeite</div><div class="meal-qty">490 kcal</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Lanche tarde: omelete simples (2 ovos)</div><div class="meal-qty">200 kcal</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Janta: carne moída + legumes + arroz/batata</div><div class="meal-qty">420 kcal</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">22h: iogurte grego / ricota / leite morno + chia + cacau</div><div class="meal-qty">200 kcal</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Café da manhã: omelete + aveia + fruta</div><div class="meal-qty">~350 kcal</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Almoço: frango + salada + arroz + feijão + azeite</div><div class="meal-qty">~490 kcal</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Lanche tarde: 2 ovos + fruta</div><div class="meal-qty">~200 kcal</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Janta: carne + legumes + batata doce</div><div class="meal-qty">~420 kcal</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">22h: caseína (iogurte/ricota/leite) + chia + cacau</div><div class="meal-qty">~170 kcal</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#A855F7"></div><div class="meal-text" style="color:#A855F7">Creatina 5g — mesmo sem treinar, não pular</div></div>
     </div>
   </div>
 
+  <!-- Jantas rotativas -->
   <p class="section-title">🍽️ Jantas Rotativas (variar sempre)</p>
   <div class="card">
     <div class="card-body">
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Favorita:</strong> Coxa/sobrecoxa assada + arroz + cenoura/chuchu + 1 ovo + azeite</div><div class="meal-qty">35 min forno</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Rápida:</strong> Frango desfiado + arroz + feijão + couve + azeite</div><div class="meal-qty">20 min panela</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Econômica:</strong> Carne moída de patinho + molho tomate + batata cozida</div><div class="meal-qty">15 min frigideira</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Express:</strong> Omelete 4 ovos + arroz + feijão + salada</div><div class="meal-qty">10 min frigideira</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Molho:</strong> Frango ao molho (tomate, cebola, alho) + arroz + feijão</div><div class="meal-qty">25 min panela</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Favorita:</strong> Coxa/sobrecoxa assada + arroz integral + cenoura + ovo + azeite</div><div class="meal-qty">35 min forno</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Rápida:</strong> Frango desfiado + feijão + couve refogada + azeite</div><div class="meal-qty">20 min</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Econômica:</strong> Carne moída de patinho + batata doce cozida + legumes</div><div class="meal-qty">15 min</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Express:</strong> Omelete 4 ovos + feijão + salada + azeite</div><div class="meal-qty">10 min</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Ômega-3:</strong> Sardinha assada/grelhada + batata doce + salada</div><div class="meal-qty">3–4x/semana</div></div>
     </div>
   </div>
+
+  <!-- Água -->
+  <p class="section-title">💧 Hidratação Diária</p>
+  <div class="water-bar">
+    <div class="water-title">💧 Meta: 3,0 – 3,5 L por dia</div>
+    <div class="water-cups">
+      <span class="water-cup">🥤</span><span class="water-cup">🥤</span><span class="water-cup">🥤</span>
+      <span class="water-cup">🥤</span><span class="water-cup">🥤</span><span class="water-cup">🥤</span>
+      <span class="water-cup">🥤</span><span class="water-cup">🥤</span><span class="water-cup">🥤</span>
+      <span class="water-cup">🥤</span><span class="water-cup">🥤</span><span class="water-cup">🥤</span>
+    </div>
+    <div class="water-legend">Cada copo = 250ml · 12 copos = 3L</div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="meal-item"><div class="meal-dot" style="background:#3B82F6"></div><div class="meal-text">Ao acordar — em jejum</div><div class="meal-qty">500ml</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#3B82F6"></div><div class="meal-text">Durante a manhã (07h–12h)</div><div class="meal-qty">750ml</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#3B82F6"></div><div class="meal-text">Almoço + tarde (12h–16h)</div><div class="meal-qty">750ml</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#3B82F6"></div><div class="meal-text">Pré-treino + durante treino</div><div class="meal-qty">750ml</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#3B82F6"></div><div class="meal-text">Pós-treino até dormir</div><div class="meal-qty">500ml</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">✅ Sinal de boa hidratação: urina amarelo-claro ou transparente</div></div>
+    </div>
+  </div>
+
+  <p class="foot-note">Reavaliação: 10 de abril de 2026 · Plano JMeloDev v11</p>
 </div>
 
-<!-- ══════════════════════════════════════
+<!-- ═══════════════════════════════
      ABA 2 — SUPLEMENTOS
-══════════════════════════════════════ -->
+═══════════════════════════════ -->
 <div class="section" id="tab-suplementos">
 
-  <!-- MEDIDAS CASEIRAS -->
-  <p class="section-title">📏 Medidas sem balança</p>
-  <div class="alert alert-orange" style="margin-bottom:8px">🥄 <strong>Compre colheres medidoras</strong> (R$ 8–15 ML) — resolve tudo sem balança.</div>
-  <div class="card">
-    <div class="card-body" style="padding:8px 10px">
-      <table class="med-table">
-        <thead>
-          <tr><th>Suplemento</th><th>Dose</th><th>Medida caseira</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>🥛 Whey Protein</td><td>30-35g</td><td>1 scoop da embalagem — já calibrado. Não medir, só usar.</td></tr>
-          <tr><td>💪 Creatina</td><td>5g</td><td>1 colher de <strong>chá rasa</strong> (não cheia)</td></tr>
-          <tr><td>⚡ L-Taurina</td><td>2g</td><td>½ colher de chá rasa</td></tr>
-          <tr><td>⚡ L-Taurina</td><td>3g</td><td>¾ colher de chá rasa</td></tr>
-          <tr><td>🌱 Chia</td><td>10g</td><td>1 colher de sopa rasa</td></tr>
-          <tr><td>🍫 Cacau 70%</td><td>5g</td><td>1 colher de chá rasa</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <div class="alert alert-orange">📦 <strong>Suplementos ativos</strong> — o que você tem agora</div>
 
-  <div class="divider"></div>
-  <p class="section-title">✅ Você já tem — usar agora</p>
+  <p class="section-title">🌅 Manhã — com o café das 07h</p>
 
-  <!-- Whey -->
-  <div class="supp-card">
-    <div class="supp-header">
-      <div class="supp-emoji">🥛</div>
-      <div class="supp-info">
-        <div class="supp-name">WHEY PROTEIN</div>
-        <div class="supp-sub">Proteína pós-treino</div>
-      </div>
-      <span class="badge badge-green">✅ TEM</span>
-    </div>
-    <div class="supp-body">
-      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value highlight">1 scoop da embalagem</span></div>
-      <div class="supp-row"><span class="supp-label">Medida</span><span class="supp-value">Scoop incluso = 1 dose exata. Não precisa medir.</span></div>
-      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value">Logo após o treino — água ou leite desnatado</span></div>
-      <div class="supp-row"><span class="supp-label">⚠️ Timing</span><span class="supp-value" style="color:#EF4444">ÚNICO com timing crítico. Não atrasar.</span></div>
-    </div>
-  </div>
-
-  <!-- Creatina -->
-  <div class="supp-card">
-    <div class="supp-header">
-      <div class="supp-emoji">💪</div>
-      <div class="supp-info">
-        <div class="supp-name">CREATINA MONOHIDRATADA</div>
-        <div class="supp-sub">Força, volume e recuperação</div>
-      </div>
-      <span class="badge badge-green">✅ TEM</span>
-    </div>
-    <div class="supp-body">
-      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value highlight">5g — TODOS OS DIAS</span></div>
-      <div class="supp-row"><span class="supp-label">Medida</span><span class="supp-value">1 colher de chá <strong>rasa</strong></span></div>
-      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value">Pós-treino ou almoço. Inclusive dias sem treino.</span></div>
-      <div class="supp-row"><span class="supp-label">Fase de carga</span><span class="supp-value">Não precisa — 5g direto desde o dia 1</span></div>
-    </div>
-  </div>
-
-  <!-- L-Taurina -->
-  <div class="supp-card">
-    <div class="supp-header">
-      <div class="supp-emoji">⚡</div>
-      <div class="supp-info">
-        <div class="supp-name">L-TAURINA</div>
-        <div class="supp-sub">Performance e proteção cardiovascular</div>
-      </div>
-      <span class="badge badge-green">✅ TEM</span>
-    </div>
-    <div class="supp-body">
-      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value highlight">2-3g por dia</span></div>
-      <div class="supp-row"><span class="supp-label">Medida</span><span class="supp-value">½ colher de chá rasa (2g) ou ¾ rasa (3g)</span></div>
-      <div class="supp-row"><span class="supp-label">Opção A</span><span class="supp-value">30 min antes do treino em água</span></div>
-      <div class="supp-row"><span class="supp-label">Opção B</span><span class="supp-value">Misturado com Whey + Creatina no pós-treino</span></div>
-    </div>
-  </div>
-
-  <!-- Lipo Dry -->
-  <div class="supp-card">
-    <div class="supp-header">
-      <div class="supp-emoji">🔥</div>
-      <div class="supp-info">
-        <div class="supp-name">LIPO DRY</div>
-        <div class="supp-sub">Termogênico (receitado)</div>
-      </div>
-      <span class="badge badge-green">✅ TEM</span>
-    </div>
-    <div class="supp-body">
-      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value highlight">Conforme bula</span></div>
-      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value highlight">30–45 min antes do treino · com 500ml de água</span></div>
-      <div class="supp-row"><span class="supp-label">🕓 Treino 16h50</span><span class="supp-value">Tomar às <strong>16h00–16h20</strong></span></div>
-      <div class="supp-row"><span class="supp-label">⛔ NUNCA</span><span class="supp-value" style="color:#EF4444">Menos de 5h antes de dormir — causa insônia</span></div>
-      <div class="supp-row"><span class="supp-label">⛔ NUNCA</span><span class="supp-value" style="color:#EF4444">Com café — risco de taquicardia</span></div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-  <p class="section-title">📦 Chegam Sexta — iniciar ao receber</p>
-
-  <div class="friday-banner">
-    <div class="fb-title">📦 A caminho — iniciar quando chegar</div>
-    <div class="friday-item"><div class="fi-dot"></div><span><strong>Artiflex</strong> — Colágeno Tipo II + Condroitina + Glucosamina — R$ 119,90</span></div>
-    <div class="friday-item"><div class="fi-dot"></div><span><strong>Vitamina D3 Synergy</strong> — Puravida 60 cáps. — R$ 55,01</span></div>
-    <div class="friday-item"><div class="fi-dot"></div><span><strong>ZMA</strong> — 120 cáps. Growth Supplements — R$ 39,90</span></div>
-  </div>
-
-  <!-- Colágeno -->
   <div class="supp-card" style="border-color:#3B82F6">
     <div class="supp-header">
       <div class="supp-emoji">🦴</div>
-      <div class="supp-info">
-        <div class="supp-name">ARTIFLEX — COLÁGENO TIPO II</div>
-        <div class="supp-sub">Articulações — PRIORITÁRIO para você</div>
-      </div>
-      <span class="badge-friday">📦 INICIAR SEXTA</span>
+      <div class="supp-info"><div class="supp-name">ARTIFLEX — COLÁGENO TIPO II</div><div class="supp-sub">Articulações · PRIORITÁRIO para você</div></div>
+      <span class="badge badge-green">✅ TEM</span>
     </div>
     <div class="supp-body">
-      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value highlight">Conforme bula</span></div>
-      <div class="supp-row"><span class="supp-label">Medida</span><span class="supp-value">Cápsula — sem necessidade de medir</span></div>
-      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value">Café da manhã com suco de ½ limão em água</span></div>
-      <div class="supp-row"><span class="supp-label">Por que você</span><span class="supp-value">Cirurgia punho dir. + ombro esq. — fortalece tendões e ligamentos operados</span></div>
-      <div class="supp-row"><span class="supp-label">⚠️ Atenção</span><span class="supp-value" style="color:#F0A500">Não misturar com Colágeno Tipo I/III no mesmo horário</span></div>
+      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value hl">Conforme bula</span></div>
+      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value">Café da manhã 07h — com suco de ½ limão OU laranja</span></div>
+      <div class="supp-row"><span class="supp-label">Por que você</span><span class="supp-value">Cirurgia punho dir. + ombro esq. — fortalece tendões e ligamentos</span></div>
+      <div class="supp-row"><span class="supp-label">⚠️ Atenção</span><span class="supp-value" style="color:#F0A500">Vitamina C potencializa absorção — laranja do café é perfeita</span></div>
     </div>
   </div>
 
-  <!-- Vitamina D3 -->
   <div class="supp-card" style="border-color:#3B82F6">
     <div class="supp-header">
       <div class="supp-emoji">☀️</div>
-      <div class="supp-info">
-        <div class="supp-name">VITAMINA D3 SYNERGY</div>
-        <div class="supp-sub">Articulações, ossos e hormônios</div>
-      </div>
-      <span class="badge-friday">📦 INICIAR SEXTA</span>
+      <div class="supp-info"><div class="supp-name">BIO VIT D3+ SYNERGY</div><div class="supp-sub">Ossos · hormônios · articulações</div></div>
+      <span class="badge badge-green">✅ TEM</span>
     </div>
     <div class="supp-body">
-      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value highlight">Conforme bula</span></div>
-      <div class="supp-row"><span class="supp-label">Medida</span><span class="supp-value">Cápsula — sem necessidade de medir</span></div>
-      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value">Café da manhã junto com gordura (ovo, azeite) — vitamina D é lipossolúvel</span></div>
-      <div class="supp-row"><span class="supp-label">Dica</span><span class="supp-value green">Tomar junto com o Artiflex — mesma refeição, sem conflito</span></div>
+      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value hl">Conforme bula</span></div>
+      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value">Café da manhã 07h — obrigatório COM gordura (ovo/azeite)</span></div>
+      <div class="supp-row"><span class="supp-label">Por quê</span><span class="supp-value">Vitamina D é lipossolúvel — sem gordura não absorve</span></div>
     </div>
   </div>
 
-  <!-- ZMA -->
-  <div class="supp-card" style="border-color:#3B82F6">
+  <p class="section-title">⚡ Pré-treino — 16h00 (padrão)</p>
+
+  <div class="supp-card" style="border-color:#EF4444">
+    <div class="supp-header">
+      <div class="supp-emoji">🔥</div>
+      <div class="supp-info"><div class="supp-name">LIPO DRY</div><div class="supp-sub">Termogênico (receitado)</div></div>
+      <span class="badge badge-green">✅ TEM</span>
+    </div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value hl">Conforme bula</span></div>
+      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value hl">30–45 min antes do treino + 500ml água</span></div>
+      <div class="supp-row"><span class="supp-label">Treino 16h40</span><span class="supp-value">Tomar às <strong>16h00</strong></span></div>
+      <div class="supp-row"><span class="supp-label">⛔ Nunca</span><span class="supp-value" style="color:#EF4444">Com café — risco de taquicardia</span></div>
+      <div class="supp-row"><span class="supp-label">⛔ Nunca</span><span class="supp-value" style="color:#EF4444">Menos de 5h antes de dormir — causa insônia</span></div>
+    </div>
+  </div>
+
+  <div class="supp-card">
+    <div class="supp-header">
+      <div class="supp-emoji">⚡</div>
+      <div class="supp-info"><div class="supp-name">L-TAURINA</div><div class="supp-sub">Foco · hidratação celular · recuperação</div></div>
+      <span class="badge badge-green">✅ TEM</span>
+    </div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value hl">2–3g em água</span></div>
+      <div class="supp-row"><span class="supp-label">Medida</span><span class="supp-value">½ col chá rasa = 2g · ¾ col chá rasa = 3g</span></div>
+      <div class="supp-row"><span class="supp-label">Opção A</span><span class="supp-value">Pré-treino 16h00 (junto com Lipo Dry)</span></div>
+      <div class="supp-row"><span class="supp-label">Opção B</span><span class="supp-value">Pós-treino 18h30 com Whey + Creatina</span></div>
+    </div>
+  </div>
+
+  <p class="section-title">💪 Pós-treino — 18h30 imediato</p>
+
+  <div class="supp-card" style="border-color:#2EA043">
+    <div class="supp-header">
+      <div class="supp-emoji">🥛</div>
+      <div class="supp-info"><div class="supp-name">WHEY PROTEIN</div><div class="supp-sub">Recuperação muscular · síntese proteica</div></div>
+      <span class="badge badge-green">✅ TEM</span>
+    </div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value hl">1 scoop em água</span></div>
+      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value hl">Imediato pós-treino — máximo 30 min</span></div>
+      <div class="supp-row"><span class="supp-label">Com</span><span class="supp-value">Creatina 5g + Taurina (opção B) + banana</span></div>
+    </div>
+  </div>
+
+  <div class="supp-card" style="border-color:#2EA043">
+    <div class="supp-header">
+      <div class="supp-emoji">⚗️</div>
+      <div class="supp-info"><div class="supp-name">CREATINA</div><div class="supp-sub">Força · potência · recuperação</div></div>
+      <span class="badge badge-green">✅ TEM</span>
+    </div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value hl">5g — 1 colher de chá RASA</span></div>
+      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value">Pós-treino · mesmo sem treinar (domingo também)</span></div>
+      <div class="supp-row"><span class="supp-label">✅ Regra</span><span class="supp-value green">Todo dia sem exceção — consistência é tudo</span></div>
+    </div>
+  </div>
+
+  <p class="section-title">🌙 Noturno — 22h20 (20 min após caseína)</p>
+
+  <div class="supp-card" style="border-color:#A855F7">
     <div class="supp-header">
       <div class="supp-emoji">🌙</div>
-      <div class="supp-info">
-        <div class="supp-name">ZMA — Zinco + Magnésio + B6</div>
-        <div class="supp-sub">Sono, recuperação e testosterona</div>
-      </div>
-      <span class="badge-friday">📦 INICIAR SEXTA</span>
+      <div class="supp-info"><div class="supp-name">ZMA</div><div class="supp-sub">Zinco + Magnésio + B6 · recuperação no sono</div></div>
+      <span class="badge badge-green">✅ TEM</span>
     </div>
     <div class="supp-body">
-      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value highlight">Conforme bula</span></div>
-      <div class="supp-row"><span class="supp-label">Medida</span><span class="supp-value">Cápsula — sem necessidade de medir</span></div>
-      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value">30-40 min antes de dormir</span></div>
-      <div class="supp-row"><span class="supp-label">⚠️ Regra</span><span class="supp-value" style="color:#F0A500">Fonte de caseína das 22h primeiro → aguardar 20 min → ZMA</span></div>
+      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value hl">Conforme bula</span></div>
+      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value hl">22h20 — 20 min após a caseína das 22h</span></div>
+      <div class="supp-row"><span class="supp-label">⚠️ Regra</span><span class="supp-value" style="color:#F0A500">Caseína primeiro → aguardar 20 min → ZMA</span></div>
+      <div class="supp-row"><span class="supp-label">Por quê</span><span class="supp-value">Proteína interfere na absorção do zinco — por isso o intervalo</span></div>
     </div>
   </div>
 
-  <div class="divider"></div>
   <p class="section-title">💊 Stack do dia — ordem completa</p>
   <div class="card">
     <div class="card-body">
-      <div class="meal-item"><div class="meal-dot" style="background:#F0A500"></div><div class="meal-text"><strong>07h — Café da manhã:</strong> Colágeno Artiflex <span class="badge-friday" style="font-size:9px">sexta</span> + Vitamina D3 <span class="badge-friday" style="font-size:9px">sexta</span></div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#3B82F6"></div><div class="meal-text"><strong>16h00–16h20 — Pré-treino:</strong> Lipo Dry + L-Taurina 2-3g em água (op. A)</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text"><strong>18h30 — Pós-treino:</strong> Whey 1 scoop + Creatina 5g + Taurina (op. B) + banana</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#A855F7"></div><div class="meal-text"><strong>22h — Lanche:</strong> Iogurte grego / Ricota / Leite morno + chia + cacau → <em>20 min</em> → ZMA <span class="badge-friday" style="font-size:9px">sexta</span></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#3B82F6"></div><div class="tl-body"><div class="tl-time">07h00</div><div class="tl-label">Café da manhã</div><div class="tl-supp">+ Artiflex + D3 Synergy (COM o ovo)</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#EF4444"></div><div class="tl-body"><div class="tl-time">16h00</div><div class="tl-label">Pré-treino</div><div class="tl-supp">+ Lipo Dry + Taurina (Opção A)</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#EF4444"></div><div class="tl-body"><div class="tl-time">16h40</div><div class="tl-label">🏋️ TREINO</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#2EA043"></div><div class="tl-body"><div class="tl-time">18h30</div><div class="tl-label">Pós-treino imediato</div><div class="tl-supp">+ Whey + Creatina 5g + Taurina (Opção B)</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#A855F7"></div><div class="tl-body"><div class="tl-time">22h00</div><div class="tl-label">Caseína (iogurte / ricota / leite)</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#A855F7"></div><div class="tl-body"><div class="tl-time">22h20</div><div class="tl-label">💊 ZMA</div></div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     ABA 3 — ALTERNATIVAS NATURAIS
-══════════════════════════════════════ -->
+<!-- ═══════════════════════════════
+     ABA 3 — NATURAIS
+═══════════════════════════════ -->
 <div class="section" id="tab-naturais">
 
-  <div class="alert alert-green">🌿 <strong>Suplementos que você NÃO vai comprar</strong> — substituídos por alimentos de fácil acesso e baixo custo.</div>
+  <div class="alert alert-green">🥗 <strong>O que você tem</strong> — como cada item entra no plano</div>
 
-  <!-- Omega 3 -->
-  <div class="supp-card">
-    <div class="supp-header">
-      <div class="supp-emoji">🐟</div>
-      <div class="supp-info">
-        <div class="supp-name">ÔMEGA-3</div>
-        <div class="supp-sub">Anti-inflamatório, coração e articulações</div>
-      </div>
-      <span class="badge badge-purple">🥗 NATURAL</span>
-    </div>
+  <div class="supp-card" style="border-color:#2EA043">
+    <div class="supp-header"><div class="supp-emoji">🐟</div><div class="supp-info"><div class="supp-name">SARDINHA EM ÁGUA</div><div class="supp-sub">Ômega-3 natural · proteína · anti-inflamatório</div></div><span class="badge badge-green">✅ TEM</span></div>
     <div class="supp-body">
-      <div class="nat-box">
-        <div class="nat-title">✅ Substitutos naturais</div>
-        <p><strong>🐟 Sardinha em conserva (água)</strong> — 1 lata = ≈2g ômega-3. A mais barata e eficaz. Coma 3-4x/semana.</p>
-        <p style="margin-top:6px"><strong>🐡 Atum em água</strong> — 1 lata = ≈0.5g ômega-3 + 25g proteína. Ótima pedida no pós-treino se faltar Whey.</p>
-        <p style="margin-top:6px"><strong>🌱 Chia / Linhaça</strong> — Já está na dieta (10g chia = ALA ômega-3). Menos potente que EPA/DHA do peixe, mas ajuda.</p>
-        <p style="margin-top:6px"><strong>🥑 Abacate</strong> — gordura saudável, anti-inflamatório. 2-3x/semana no almoço ou lanche.</p>
-      </div>
-      <div class="supp-row" style="margin-top:8px"><span class="supp-label">Meta semanal</span><span class="supp-value">3-4 refeições com sardinha ou atum</span></div>
+      <div class="supp-row"><span class="supp-label">Frequência</span><span class="supp-value green">3–4x por semana</span></div>
+      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value">Almoço ou janta — substitui o frango</span></div>
+      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value">1 lata (~125g) = 25g proteína + 0,5g ômega-3</span></div>
+      <div class="nat-box"><div class="nat-title">💡 Por que priorizar</div><p>Ômega-3 reduz inflamação nas articulações — essencial para quem tem histórico de cirurgia de punho e ombro. Sinergiza com o Artiflex.</p></div>
     </div>
   </div>
 
-  <!-- Caseína -->
-  <div class="supp-card">
-    <div class="supp-header">
-      <div class="supp-emoji">🧀</div>
-      <div class="supp-info">
-        <div class="supp-name">CASEÍNA</div>
-        <div class="supp-sub">Proteína de liberação lenta (noturna)</div>
-      </div>
-      <span class="badge badge-purple">🥗 NATURAL</span>
-    </div>
+  <div class="supp-card" style="border-color:#A855F7">
+    <div class="supp-header"><div class="supp-emoji">🥛</div><div class="supp-info"><div class="supp-name">IOGURTE NATURAL ZERO</div><div class="supp-sub">Caseína noturna · probióticos</div></div><span class="badge badge-green">✅ TEM</span></div>
     <div class="supp-body">
-      <div class="nat-box">
-        <div class="nat-title">✅ 3 fontes práticas — escolha a mais fácil de comprar</div>
-        <p><strong>🥛 Opção A — Iogurte grego natural integral (200g)</strong> = ≈20g proteína de absorção lenta. Disponível em qualquer mercado (Nestlé, Danone, Vigor). Mistura com chia + cacau antes de dormir.</p>
-        <p style="margin-top:6px"><strong>🧀 Opção B — Ricota (200g)</strong> = ≈22g proteína lenta. Amasse com garfo, adiciona chia + cacau. Um pouco mais seca mas com ótima proteína.</p>
-        <p style="margin-top:6px"><strong>🥛 Opção C — Leite morno integral (300ml)</strong> = ≈10g proteína lenta. Mais simples de todas — mistura o cacau direto no leite. Boa escolha quando não tiver nada em casa.</p>
-        <p style="margin-top:6px;color:#F0A500"><strong>⚠️ Regra para qualquer opção:</strong> comer primeiro → aguardar 20 min → tomar ZMA</p>
-      </div>
+      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value">Lanche das 22h — caseína principal</span></div>
+      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value">200g = ~18g proteína de absorção lenta</span></div>
+      <div class="supp-row"><span class="supp-label">Como</span><span class="supp-value">Chia 10g + cacau 1 col chá + canela 1 pitada</span></div>
+      <div class="nat-box"><div class="nat-title">💡 Zero vs Integral</div><p>Zero tem menos gordura mas proteína similar. Como o dia já tem gordura suficiente dos ovos e azeite, o zero é a escolha ideal — reduz ~50 kcal no lanche.</p></div>
     </div>
   </div>
 
-  <!-- Magnésio e Zinco (até o ZMA chegar e depois como reforço) -->
-  <div class="supp-card">
-    <div class="supp-header">
-      <div class="supp-emoji">💤</div>
-      <div class="supp-info">
-        <div class="supp-name">MAGNÉSIO + ZINCO</div>
-        <div class="supp-sub">Sono e recuperação (ZMA chega sexta)</div>
-      </div>
-      <span class="badge badge-purple">🥗 REFORÇO</span>
-    </div>
+  <div class="supp-card" style="border-color:#A855F7">
+    <div class="supp-header"><div class="supp-emoji">🧀</div><div class="supp-info"><div class="supp-name">CREME DE RICOTA</div><div class="supp-sub">Caseína alternativa · proteína moderada</div></div><span class="badge badge-green">✅ TEM</span></div>
     <div class="supp-body">
-      <div class="nat-box">
-        <div class="nat-title">✅ Fontes naturais de reforço</div>
-        <p><strong>Magnésio:</strong> Espinafre, aveia (já tem), amendoim, banana (já tem), castanha-do-pará (1-2 unid./dia).</p>
-        <p style="margin-top:6px"><strong>Zinco:</strong> Carne vermelha, feijão (já tem), castanha de caju, semente de abóbora.</p>
-        <p style="margin-top:6px">O ZMA a partir de sexta complementa o que os alimentos não cobrem totalmente.</p>
-      </div>
+      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value">22h — alternativa ao iogurte</span></div>
+      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value">100g = ~11g proteína</span></div>
+      <div class="supp-row"><span class="supp-label">Como</span><span class="supp-value">Chia + cacau + canela. Textura cremosa — boa pedida</span></div>
     </div>
   </div>
 
-  <!-- Vitamina C (potencializa colágeno) -->
   <div class="supp-card">
-    <div class="supp-header">
-      <div class="supp-emoji">🍋</div>
-      <div class="supp-info">
-        <div class="supp-name">VITAMINA C</div>
-        <div class="supp-sub">Potencializa absorção do colágeno</div>
-      </div>
-      <span class="badge badge-purple">🥗 NATURAL</span>
-    </div>
+    <div class="supp-header"><div class="supp-emoji">🌱</div><div class="supp-info"><div class="supp-name">CHIA</div><div class="supp-sub">Fibra · ômega-3 vegetal · saciedade</div></div><span class="badge badge-green">✅ TEM</span></div>
     <div class="supp-body">
-      <div class="nat-box">
-        <div class="nat-title">✅ Como usar na prática</div>
-        <p>Tomar o <strong>Artiflex (colágeno)</strong> com suco de <strong>meio limão espremido</strong> em água — barato, simples, potencializa a absorção.</p>
-        <p style="margin-top:6px"><strong>Alternativas:</strong> caju, goiaba, laranja ou acerola no café da manhã.</p>
-      </div>
+      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value hl">10g = 2 col chá rasas</span></div>
+      <div class="supp-row"><span class="supp-label">Café manhã</span><span class="supp-value">Na aveia — aumenta saciedade até o almoço</span></div>
+      <div class="supp-row"><span class="supp-label">22h</span><span class="supp-value">No iogurte/ricota — fibra + slow-release</span></div>
     </div>
   </div>
 
-  <!-- Termogênico natural (dias sem Lipo Dry) -->
-  <div class="supp-card">
-    <div class="supp-header">
-      <div class="supp-emoji">☕</div>
-      <div class="supp-info">
-        <div class="supp-name">TERMOGÊNICO NATURAL</div>
-        <div class="supp-sub">Reforço para dias com muito estresse ou privação de sono</div>
-      </div>
-      <span class="badge badge-purple">🥗 REFORÇO</span>
-    </div>
+  <div class="supp-card" style="border-color:#F0A500">
+    <div class="supp-header"><div class="supp-emoji">🍂</div><div class="supp-info"><div class="supp-name">CANELA EM PÓ</div><div class="supp-sub">Sensibilizador de insulina · termogênico natural</div></div><span class="badge badge-green">✅ TEM</span></div>
     <div class="supp-body">
-      <div class="alert alert-red" style="font-size:11px;margin-bottom:8px">⛔ <strong>NÃO combinar</strong> com Lipo Dry no mesmo dia — risco de taquicardia</div>
-      <div class="nat-box">
-        <div class="nat-title">✅ Nos dias sem Lipo Dry</div>
-        <p><strong>Café preto</strong> (200-300ml) — cafeína natural. Tomar antes do treino.</p>
-        <p style="margin-top:6px"><strong>Chá verde</strong> — termogênico leve, antioxidante. Manhã ou pré-treino.</p>
-        <p style="margin-top:6px"><strong>Chá de gengibre</strong> — efeito moderado, anti-inflamatório de bônus.</p>
-      </div>
+      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value hl">1 col chá por uso</span></div>
+      <div class="supp-row"><span class="supp-label">Aveia 07h</span><span class="supp-value">Melhora resposta glicêmica do café da manhã</span></div>
+      <div class="supp-row"><span class="supp-label">Batata doce 16h</span><span class="supp-value">Reduz pico de insulina pré-treino</span></div>
+      <div class="supp-row"><span class="supp-label">22h</span><span class="supp-value">No iogurte — leve efeito termogênico</span></div>
+      <div class="nat-box"><div class="nat-title">💡 Novo no plano!</div><p>Canela não estava no plano anterior. Com ela na aveia + batata doce, você melhora o controle glicêmico ao longo do dia — acelera resultado de perda de gordura.</p></div>
+    </div>
+  </div>
+
+  <div class="supp-card">
+    <div class="supp-header"><div class="supp-emoji">🍫</div><div class="supp-info"><div class="supp-name">CACAU EM PÓ 70%+</div><div class="supp-sub">Antioxidante · flavonoides · termogênico leve</div></div><span class="badge badge-green">✅ TEM</span></div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-label">Dose</span><span class="supp-value hl">1 col chá rasa</span></div>
+      <div class="supp-row"><span class="supp-label">Quando</span><span class="supp-value">Lanche das 22h no iogurte/ricota/leite</span></div>
+      <div class="supp-row"><span class="supp-label">⚠️ Atenção</span><span class="supp-value" style="color:#F0A500">Contém cafeína — não exagerar à noite</span></div>
+    </div>
+  </div>
+
+  <div class="supp-card" style="border-color:#F0A500">
+    <div class="supp-header"><div class="supp-emoji">🍌</div><div class="supp-info"><div class="supp-name">FRUTAS — Banana, Maçã, Laranja</div><div class="supp-sub">Carboidrato natural · vitaminas · fibra</div></div><span class="badge badge-green">✅ TEM</span></div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-label">Banana</span><span class="supp-value">Pós-treino + café manhã — potássio + carbo rápido</span></div>
+      <div class="supp-row"><span class="supp-label">Laranja</span><span class="supp-value">Com Artiflex — vitamina C potencializa colágeno</span></div>
+      <div class="supp-row"><span class="supp-label">Maçã</span><span class="supp-value">Lanche manhã — fibra + saciedade</span></div>
+    </div>
+  </div>
+
+  <!-- Termogênico natural -->
+  <p class="section-title">🌿 Termogênico natural — dias sem Lipo Dry</p>
+  <div class="card">
+    <div class="card-body">
+      <div class="alert alert-red" style="font-size:11px;margin-bottom:8px">⛔ <strong>NÃO combinar</strong> com Lipo Dry — risco de taquicardia</div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Chá verde</strong> — leve termogênico + antioxidante. Manhã ou pré-treino.</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Canela</strong> — já tem em casa. Usar em dobro nos dias sem Lipo Dry.</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Café preto</strong> — cafeína natural. Manhã ou até 2h antes do treino.</div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
+<!-- ═══════════════════════════════
      ABA 4 — TIMING
-══════════════════════════════════════ -->
+═══════════════════════════════ -->
 <div class="section" id="tab-timing">
 
-  <div class="alert alert-orange">⏱️ <strong>Guia rápido de horários</strong> — dias de treino (seg–sex)</div>
+  <div class="alert alert-orange">⏱️ <strong>Guia rápido de horários</strong> — treino padrão 16h40</div>
 
-  <!-- Timeline -->
   <div class="card">
     <div class="card-body">
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#F0A500;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing">07h00</span>
-          <div><strong>Café da manhã</strong> + Colágeno Artiflex <span class="badge-friday" style="font-size:9px">sexta</span> + Vitamina D3 <span class="badge-friday" style="font-size:9px">sexta</span></div>
-          <div style="font-size:11px;color:var(--muted)">Omelete + aveia + chia + banana · com suco de limão para o colágeno</div>
-        </div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#8B949E;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing">10h00</span>
-          <div><strong>Lanche da manhã</strong></div>
-          <div style="font-size:11px;color:var(--muted)">2 ovos + pão integral + café/chá</div>
-        </div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#8B949E;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing">12h30</span>
-          <div><strong>Almoço</strong></div>
-          <div style="font-size:11px;color:var(--muted)">Arroz + feijão + frango + salada + azeite</div>
-        </div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#F0A500;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing">16h00</span>
-          <div><strong>⚡ Pré-treino</strong></div>
-          <div style="font-size:11px;color:var(--muted)">Batata doce 100g + frango/ovo 80g</div>
-          <div style="font-size:11px;color:#EF4444"><strong>+ Lipo Dry</strong> (30–45 min antes do treino)</div>
-          <div style="font-size:11px;color:#F0A500">+ L-Taurina (se opção A)</div>
-        </div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#EF4444;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing" style="border-color:#EF4444;color:#EF4444">16h50</span>
-          <div><strong>🏋️ TREINO</strong></div>
-        </div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#2EA043;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing" style="border-color:#2EA043;color:#2EA043">18h30</span>
-          <div><strong>💪 Pós-treino IMEDIATO</strong></div>
-          <div style="font-size:11px;color:#2EA043">Whey + Creatina 5g + Taurina + banana</div>
-          <div style="font-size:11px;color:var(--muted)">⚠️ Timing crítico — não atrasar</div>
-        </div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#8B949E;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing">19h30</span>
-          <div><strong>🍗 Janta</strong></div>
-          <div style="font-size:11px;color:var(--muted)">Frango 150g + arroz 60g + legumes 200g + ovo + azeite</div>
-        </div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#A855F7;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing" style="border-color:#A855F7;color:#A855F7">22h00</span>
-          <div><strong>🌙 Lanche anti-compulsão</strong></div>
-          <div style="font-size:11px;color:var(--muted)">Iogurte grego / Ricota / Leite morno + chia + cacau</div>
-          <div style="font-size:11px;color:#A855F7">20 min depois → ZMA <span class="badge-friday" style="font-size:9px">sexta</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <p class="section-title">🔄 Treinos em outros horários</p>
-  <div class="alert" style="background:#0d1b2a;border:1px solid #3B82F6;color:#3B82F6;border-radius:8px;padding:10px;margin-bottom:10px;font-size:12px">
-    📌 <strong>Adapte o Lipo Dry e a refeição pré-treino conforme o horário do dia</strong>
-  </div>
-
-  <!-- Treino manhã -->
-  <div class="card" style="margin-bottom:10px">
-    <div class="card-body">
-      <div style="font-size:13px;font-weight:700;color:#F0A500;margin-bottom:8px">🌅 Cenário A — Treino pela manhã (ex: 07h00–08h30)</div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#EF4444;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing" style="border-color:#EF4444;color:#EF4444">06h15</span><div><strong>Lipo Dry</strong> + 500ml água · em jejum ou lanche leve</div></div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#F0A500;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing">06h30</span><div>L-Taurina 2-3g em água (opcional)</div></div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#EF4444;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing" style="border-color:#EF4444;color:#EF4444">07h00</span><div><strong>🏋️ TREINO</strong></div></div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#2EA043;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing" style="border-color:#2EA043;color:#2EA043">08h30</span><div><strong>Pós-treino IMEDIATO</strong> — Whey + Creatina + Taurina + banana</div></div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#8B949E;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing">09h30</span><div>Café da manhã completo + Colágeno Artiflex + D3</div></div>
-      </div>
-      <div style="font-size:11px;color:#EF4444;margin-top:4px;padding-left:12px">⚠️ Lipo Dry tomado às 06h15 → efeito termina por volta das 12h–14h · sem impacto no sono</div>
-    </div>
-  </div>
-
-  <!-- Treino 14h -->
-  <div class="card" style="margin-bottom:10px">
-    <div class="card-body">
-      <div style="font-size:13px;font-weight:700;color:#A855F7;margin-bottom:8px">☀️ Cenário B — Treino às 14h00</div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#F0A500;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing">07h00</span><div>Café da manhã + Colágeno Artiflex + D3</div></div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#EF4444;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing" style="border-color:#EF4444;color:#EF4444">13h15</span><div><strong>Lipo Dry</strong> + 500ml água</div></div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#F0A500;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing">13h30</span><div>Refeição pré-treino leve (batata doce + frango) + L-Taurina</div></div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#EF4444;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing" style="border-color:#EF4444;color:#EF4444">14h00</span><div><strong>🏋️ TREINO</strong></div></div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#2EA043;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing" style="border-color:#2EA043;color:#2EA043">15h30</span><div><strong>Pós-treino IMEDIATO</strong> — Whey + Creatina + Taurina + banana</div></div>
-      </div>
-      <div style="font-size:11px;color:#EF4444;margin-top:4px;padding-left:12px">⚠️ Lipo Dry às 13h15 → efeito termina ~19h–20h · sono às 23h sem problema</div>
-    </div>
-  </div>
-
-  <!-- Treino 16h50 padrão resumo -->
-  <div class="card" style="margin-bottom:16px;border:1px solid #2EA043">
-    <div class="card-body">
-      <div style="font-size:13px;font-weight:700;color:#2EA043;margin-bottom:8px">🎯 Cenário C — Seu horário padrão (16h50–18h30)</div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#F0A500;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing">07h00</span><div>Café da manhã + Colágeno Artiflex + D3</div></div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#EF4444;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing" style="border-color:#EF4444;color:#EF4444">16h00</span><div><strong>Lipo Dry</strong> + 500ml água · refeição pré-treino + L-Taurina</div></div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#EF4444;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing" style="border-color:#EF4444;color:#EF4444">16h50</span><div><strong>🏋️ TREINO</strong></div></div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#2EA043;width:8px;height:8px"></div>
-        <div class="meal-text"><span class="timing" style="border-color:#2EA043;color:#2EA043">18h30</span><div><strong>Pós-treino IMEDIATO</strong> — Whey + Creatina + Taurina + banana</div></div>
-      </div>
-      <div style="font-size:11px;color:#2EA043;margin-top:4px;padding-left:12px">✅ Lipo Dry às 16h → efeito termina ~22h · sono às 23h–00h dentro do limite</div>
+      <div class="tl-item"><div class="tl-dot" style="background:#F0A500"></div><div class="tl-body"><div class="tl-time">07h00</div><div class="tl-label">Café da manhã</div><div class="tl-sub">Omelete + aveia + chia + canela + fruta</div><div class="tl-supp">+ Artiflex + D3 Synergy</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#8B949E"></div><div class="tl-body"><div class="tl-time">10h00</div><div class="tl-label">Lanche da manhã</div><div class="tl-sub">2 ovos + aveia ou fruta</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#8B949E"></div><div class="tl-body"><div class="tl-time">12h30</div><div class="tl-label">Almoço</div><div class="tl-sub">Frango/sardinha + feijão + arroz/batata + salada + azeite</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#F0A500"></div><div class="tl-body"><div class="tl-time">16h00</div><div class="tl-label">⚡ Pré-treino</div><div class="tl-sub">Batata doce 100g + canela + frango 80g</div><div class="tl-supp">+ Lipo Dry + Taurina (Opção A)</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#EF4444"></div><div class="tl-body"><div class="tl-time" style="color:#EF4444">16h40</div><div class="tl-label">🏋️ TREINO</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#2EA043"></div><div class="tl-body"><div class="tl-time" style="color:#2EA043">18h30</div><div class="tl-label">💪 Pós-treino imediato</div><div class="tl-sub">Banana</div><div class="tl-supp">+ Whey + Creatina 5g + Taurina (Opção B)</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#8B949E"></div><div class="tl-body"><div class="tl-time">19h30</div><div class="tl-label">Janta</div><div class="tl-sub">Frango 150g + batata/arroz + legumes + ovo + azeite</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#A855F7"></div><div class="tl-body"><div class="tl-time" style="color:#A855F7">22h00</div><div class="tl-label">🌙 Caseína anti-compulsão</div><div class="tl-sub">Iogurte zero / Ricota / Leite + chia + cacau + canela</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#A855F7"></div><div class="tl-body"><div class="tl-time" style="color:#A855F7">22h20</div><div class="tl-label">💊 ZMA</div><div class="tl-sub">20 min após a caseína</div></div></div>
     </div>
   </div>
 
   <p class="section-title">📊 Regras de ouro</p>
   <div class="card">
     <div class="card-body">
-      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Creatina: 1 colher de chá <strong>rasa</strong> = 5g exatos</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Taurina: ½ colher de chá rasa = 2g · ¾ rasa = 3g</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Creatina todo dia — mesmo sem treinar</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Caseína às 22h (iogurte / ricota / leite morno) — NUNCA pular, evita compulsão</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Whey logo após o treino — único timing crítico</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">D3 e Colágeno sempre COM comida gordurosa</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#EF4444"></div><div class="meal-text">Lipo Dry: 30–45 min antes do treino · NUNCA com café · NUNCA &lt;5h antes de dormir</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#EF4444"></div><div class="meal-text">ZMA: aguardar 20 min após a fonte de caseína das 22h</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#F0A500"></div><div class="meal-text">Sardinha / atum 3-4x por semana (ômega-3)</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#F0A500"></div><div class="meal-text">Colágeno com suco de limão — potencializa absorção</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Creatina 5g todo dia — mesmo sem treinar</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Caseína 22h — NUNCA pular, evita compulsão</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Whey imediato pós-treino — único timing crítico</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">D3 + Artiflex SEMPRE com comida gordurosa (ovo/azeite)</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Artflex + Vitamina C (laranja ou limão) — absorção 2x maior</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Sardinha 3–4x/semana — ômega-3 para as articulações</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#EF4444"></div><div class="meal-text">Lipo Dry: 30–45 min antes do treino · NUNCA com café</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#EF4444"></div><div class="meal-text">Lipo Dry: NUNCA menos de 5h antes de dormir</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#EF4444"></div><div class="meal-text">ZMA: aguardar 20 min após a caseína das 22h</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#F0A500"></div><div class="meal-text">Canela: aveia + batata doce — controle glicêmico</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#F0A500"></div><div class="meal-text">Água: 3,0–3,5L/dia · urina clara = hidratado</div></div>
     </div>
   </div>
-
-  <p class="foot-note">Reavaliação: 10 de abril de 2026 · Plano JMeloDev v11</p>
 </div>
 
-<!-- ══════════════════════════════════════
-     ABA 5 — TREINO MANHÃ
-══════════════════════════════════════ -->
-<div class="section" id="tab-manha">
+<!-- ═══════════════════════════════
+     ABA 5 — ALTERNATIVOS
+═══════════════════════════════ -->
+<div class="section" id="tab-alternativos">
 
-  <div class="alert alert-orange" style="text-align:center;margin-bottom:12px">
-    🌅 <strong>MODO TREINO MANHÃ</strong> — Opção alternativa ao padrão 16h50
-  </div>
+  <div class="alert alert-blue">🔄 <strong>Protocolos alternativos</strong> — quando o treino mudar de horário</div>
 
-  <p class="section-title">⏱️ Sequência completa — treino 07h–08h30</p>
-
+  <p class="section-title">🌅 Treino pela manhã — 07h00 até 08h30</p>
   <div class="card">
     <div class="card-body">
-
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#EF4444;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing" style="border-color:#EF4444;color:#EF4444">06h00–06h15</span>
-          <div><strong>🔥 Lipo Dry</strong> + 500ml água · em jejum</div>
-          <div style="font-size:11px;color:var(--muted)">Efeito termina ~12h–14h · zero impacto no sono</div>
-        </div>
-      </div>
-
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#F0A500;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing">06h30</span>
-          <div><strong>L-Taurina 2–3g</strong> em água (Opção A — pré-treino)</div>
-          <div style="font-size:11px;color:var(--muted)">Opcional — pode ser tomada no pós-treino com o Whey</div>
-        </div>
-      </div>
-
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#EF4444;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing" style="border-color:#EF4444;color:#EF4444">07h00</span>
-          <div><strong>🏋️ TREINO</strong> — até 08h30</div>
-        </div>
-      </div>
-
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#2EA043;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing" style="border-color:#2EA043;color:#2EA043">08h30</span>
-          <div><strong>💪 Pós-treino IMEDIATO</strong></div>
-          <div style="font-size:11px;color:#2EA043">Whey 1 scoop + Creatina 5g + Taurina (Opção B) + banana</div>
-          <div style="font-size:11px;color:var(--muted)">⚠️ Timing crítico — não atrasar</div>
-        </div>
-      </div>
-
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#F0A500;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing">09h00–09h30</span>
-          <div><strong>☀️ Café da manhã completo</strong></div>
-          <div style="font-size:11px;color:var(--muted)">Omelete (4 claras + 1 ovo) + aveia 40g + chia 10g + banana</div>
-          <div style="font-size:11px;color:#3B82F6">+ Colágeno Artiflex + Vitamina D3 (sempre COM a refeição)</div>
-        </div>
-      </div>
-
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#8B949E;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing">12h00</span>
-          <div><strong>Lanche da manhã</strong></div>
-          <div style="font-size:11px;color:var(--muted)">2 ovos + pão integral + café/chá sem açúcar</div>
-        </div>
-      </div>
-
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#8B949E;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing">14h00</span>
-          <div><strong>Almoço</strong></div>
-          <div style="font-size:11px;color:var(--muted)">Arroz integral + feijão + frango + salada + azeite</div>
-        </div>
-      </div>
-
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#8B949E;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing">17h00</span>
-          <div><strong>Lanche da tarde</strong></div>
-          <div style="font-size:11px;color:var(--muted)">Frango desfiado ou atum + torrada integral ou batata doce 80g</div>
-        </div>
-      </div>
-
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#8B949E;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing">20h00</span>
-          <div><strong>Janta</strong></div>
-          <div style="font-size:11px;color:var(--muted)">Frango 150g + arroz 60g + legumes 200g + ovo + azeite</div>
-        </div>
-      </div>
-
-      <div class="meal-item">
-        <div class="meal-dot" style="background:#A855F7;width:8px;height:8px"></div>
-        <div class="meal-text">
-          <span class="timing" style="border-color:#A855F7;color:#A855F7">22h00</span>
-          <div><strong>🌙 Lanche anti-compulsão</strong></div>
-          <div style="font-size:11px;color:var(--muted)">Iogurte grego / Ricota / Leite morno + chia + cacau</div>
-          <div style="font-size:11px;color:#A855F7">20 min depois → ZMA</div>
-        </div>
-      </div>
-
+      <div class="tl-item"><div class="tl-dot" style="background:#EF4444"></div><div class="tl-body"><div class="tl-time" style="color:#EF4444">06h00–06h15</div><div class="tl-label">🔥 Lipo Dry + 500ml água</div><div class="tl-sub">Em jejum · efeito termina ~13h · zero risco para o sono</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#F0A500"></div><div class="tl-body"><div class="tl-time">06h30</div><div class="tl-label">L-Taurina 2–3g em água (Opção A)</div><div class="tl-sub">Opcional pré-treino</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#EF4444"></div><div class="tl-body"><div class="tl-time" style="color:#EF4444">07h00</div><div class="tl-label">🏋️ TREINO</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#2EA043"></div><div class="tl-body"><div class="tl-time" style="color:#2EA043">08h30</div><div class="tl-label">💪 Pós-treino imediato</div><div class="tl-supp">Whey + Creatina 5g + Taurina (Opção B) + banana</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#F0A500"></div><div class="tl-body"><div class="tl-time">09h00–09h30</div><div class="tl-label">☀️ Café da manhã completo</div><div class="tl-sub">Omelete + aveia + chia + canela + fruta</div><div class="tl-supp">+ Artiflex + D3 Synergy (colágeno após o treino = +absorção)</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#8B949E"></div><div class="tl-body"><div class="tl-time">12h00</div><div class="tl-label">Lanche manhã</div><div class="tl-sub">2 ovos + aveia 30g</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#8B949E"></div><div class="tl-body"><div class="tl-time">14h00</div><div class="tl-label">Almoço</div><div class="tl-sub">Frango/sardinha + feijão + arroz/batata + salada</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#8B949E"></div><div class="tl-body"><div class="tl-time">17h00</div><div class="tl-label">Lanche da tarde</div><div class="tl-sub">Frango desfiado ou atum + batata doce 80g</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#8B949E"></div><div class="tl-body"><div class="tl-time">20h00</div><div class="tl-label">Janta</div><div class="tl-sub">Frango + batata/arroz + legumes + ovo + azeite</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#A855F7"></div><div class="tl-body"><div class="tl-time" style="color:#A855F7">22h00</div><div class="tl-label">🌙 Caseína + chia + cacau</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#A855F7"></div><div class="tl-body"><div class="tl-time" style="color:#A855F7">22h20</div><div class="tl-label">💊 ZMA</div></div></div>
     </div>
   </div>
 
-  <p class="section-title">⚡ Pré-treino manhã — o que comer antes das 07h</p>
+  <!-- Opções pré-treino manhã -->
   <div class="card">
     <div class="card-header" style="border-bottom-color:#F0A500">
-      <span class="icon">⚡</span>
-      <span class="title" style="color:#F0A500">Pré-treino (06h30–06h45)</span>
+      <span class="icon">⚡</span><span class="title" style="color:#F0A500">O que comer antes das 07h (opcional)</span>
     </div>
     <div class="card-body">
-      <div class="alert alert-orange" style="font-size:11px;margin-bottom:8px">⚠️ Treinar com estômago cheio prejudica performance — opções leves:</div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Opção A — Jejum total</strong></div><div class="meal-qty">0 kcal</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text" style="font-size:12px;color:var(--muted)">Só água + Lipo Dry + Taurina. Ideal se acordar às 06h ou antes.</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Opção B — Lanche ultralight</strong></div><div class="meal-qty">~100 kcal</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text" style="font-size:12px;color:var(--muted)">1 banana pequena ou 1 fatia de pão integral. Rápido e sem peso.</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Opção C — Sem tempo</strong></div><div class="meal-qty">~80 kcal</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text" style="font-size:12px;color:var(--muted)">1 colher de aveia seca + água. Digere rápido, não pesa.</div></div>
+      <div class="alert alert-orange" style="font-size:11px;margin-bottom:8px">⚠️ Estômago cheio = performance reduzida. Prefira leve ou jejum.</div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Opção A — Jejum total</strong> — só água + Lipo Dry + Taurina</div><div class="meal-qty">0 kcal</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Opção B — Banana pequena</strong> — rápida digestão, energia imediata</div><div class="meal-qty">~90 kcal</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Opção C — Aveia seca 1 col sopa</strong> + água — leve, digere rápido</div><div class="meal-qty">~70 kcal</div></div>
     </div>
   </div>
 
-  <p class="section-title">💪 Pós-treino — ao chegar do treino (~08h30)</p>
+  <p class="section-title">☀️ Treino antes das 14h — ex: 13h00</p>
   <div class="card">
-    <div class="card-header" style="border-bottom-color:#2EA043">
-      <span class="icon">💪</span>
-      <span class="title" style="color:#2EA043">Pós-treino IMEDIATO — 08h30</span>
-      <span class="kcal">260 kcal</span>
-    </div>
     <div class="card-body">
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Whey Protein</strong></div><div class="meal-qty">1 scoop</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text"><strong>Creatina</strong></div><div class="meal-qty">5g (1 col. chá rasa)</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">L-Taurina (Opção B)</div><div class="meal-qty">2–3g</div></div>
-      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Banana</div><div class="meal-qty">1 unid.</div></div>
-      <div class="alert alert-green" style="font-size:11px;margin-top:8px">✅ Após 20–30 min → Café da manhã completo + Colágeno + D3</div>
+      <div class="tl-item"><div class="tl-dot" style="background:#F0A500"></div><div class="tl-body"><div class="tl-time">07h00</div><div class="tl-label">Café da manhã + Artiflex + D3</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#8B949E"></div><div class="tl-body"><div class="tl-time">10h00</div><div class="tl-label">Lanche manhã</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#EF4444"></div><div class="tl-body"><div class="tl-time" style="color:#EF4444">12h15</div><div class="tl-label">🔥 Lipo Dry + 500ml água</div><div class="tl-sub">Efeito termina ~18h · sono 23h sem problema ✅</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#F0A500"></div><div class="tl-body"><div class="tl-time">12h30</div><div class="tl-label">Pré-treino leve</div><div class="tl-sub">Batata doce 80g + frango 80g + Taurina</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#EF4444"></div><div class="tl-body"><div class="tl-time" style="color:#EF4444">13h00</div><div class="tl-label">🏋️ TREINO</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#2EA043"></div><div class="tl-body"><div class="tl-time" style="color:#2EA043">14h30</div><div class="tl-label">💪 Whey + Creatina + banana</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#8B949E"></div><div class="tl-body"><div class="tl-time">16h00</div><div class="tl-label">Almoço completo</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#8B949E"></div><div class="tl-body"><div class="tl-time">19h30</div><div class="tl-label">Janta</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#A855F7"></div><div class="tl-body"><div class="tl-time" style="color:#A855F7">22h00</div><div class="tl-label">🌙 Caseína + ZMA 22h20</div></div></div>
     </div>
   </div>
 
-  <p class="section-title">🔄 Diferenças vs treino padrão 16h50</p>
+  <p class="section-title">🔄 O que muda vs. o que não muda</p>
   <div class="card">
     <div class="card-body">
-      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Lipo Dry às <strong>06h00–06h15</strong> (não às 16h)</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Café da manhã <strong>depois</strong> do treino (~09h) e não antes</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Colágeno + D3 no café das 09h (não às 07h)</div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Lipo Dry termina ~12h–14h → <strong>zero risco para o sono</strong></div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#F0A500"></div><div class="meal-text">ZMA, caseína 22h e Creatina: <strong>sem alteração</strong></div></div>
-      <div class="meal-item"><div class="meal-dot" style="background:#EF4444"></div><div class="meal-text">NUNCA tomar Lipo Dry com café — respeitar 30 min de intervalo</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">ZMA, caseína 22h e Creatina: <strong>sem alteração em qualquer cenário</strong></div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Lipo Dry manhã (06h) → efeito termina ~13h → zero risco sono</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text">Artiflex + D3: sempre COM a primeira refeição sólida com gordura</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#EF4444"></div><div class="meal-text">Lipo Dry: SEMPRE 30–45 min antes do treino — independe do horário</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#EF4444"></div><div class="meal-text">NUNCA tomar Lipo Dry e café no mesmo horário</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     ABA 6 — MEDIDAS
+═══════════════════════════════ -->
+<div class="section" id="tab-medidas">
+
+  <div class="alert alert-orange">📏 <strong>Medidas sem balança</strong> — referência para cada suplemento</div>
+
+  <p class="section-title">🥄 Colher de chá</p>
+  <div class="card">
+    <div class="card-body">
+      <table class="med-table">
+        <thead><tr><th>Produto</th><th>Qtd</th><th>= Gramas</th></tr></thead>
+        <tbody>
+          <tr><td>Creatina</td><td>1 rasa</td><td>≈ 5g ✅ dose exata</td></tr>
+          <tr><td>L-Taurina</td><td>½ rasa</td><td>≈ 2g</td></tr>
+          <tr><td>L-Taurina</td><td>¾ rasa</td><td>≈ 3g</td></tr>
+          <tr><td>Cacau em pó</td><td>1 rasa</td><td>≈ 3g</td></tr>
+          <tr><td>Canela em pó</td><td>1 rasa</td><td>≈ 2,5g</td></tr>
+          <tr><td>Chia</td><td>2 rasas</td><td>≈ 10g</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="section-title">🥄 Colher de sopa</p>
+  <div class="card">
+    <div class="card-body">
+      <table class="med-table">
+        <thead><tr><th>Produto</th><th>Qtd</th><th>= Gramas</th></tr></thead>
+        <tbody>
+          <tr><td>Aveia em flocos</td><td>2 rasas</td><td>≈ 20g</td></tr>
+          <tr><td>Aveia em flocos</td><td>4 rasas</td><td>≈ 40g</td></tr>
+          <tr><td>Arroz cozido</td><td>3 cheias</td><td>≈ 80g</td></tr>
+          <tr><td>Feijão/lentilha coz.</td><td>3 cheias</td><td>≈ 80g</td></tr>
+          <tr><td>Doce de leite</td><td>2 rasas</td><td>≈ 30g (refeed)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="section-title">✋ Medida da mão</p>
+  <div class="card">
+    <div class="card-body">
+      <table class="med-table">
+        <thead><tr><th>Gesto</th><th>Alimento</th><th>≈ Quanto</th></tr></thead>
+        <tbody>
+          <tr><td>Palma aberta</td><td>Frango/carne</td><td>≈ 120–150g</td></tr>
+          <tr><td>Punho fechado</td><td>Batata doce / arroz</td><td>≈ 80g cozido</td></tr>
+          <tr><td>Polegar</td><td>Azeite / manteiga</td><td>≈ 5–10g</td></tr>
+          <tr><td>2 dedos</td><td>Creme de ricota</td><td>≈ 50g</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="section-title">🥤 Líquidos</p>
+  <div class="card">
+    <div class="card-body">
+      <table class="med-table">
+        <thead><tr><th>Medida</th><th>= mL</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr><td>Copo americano</td><td>≈ 200ml</td><td>Café / chá</td></tr>
+          <tr><td>Copo grande</td><td>≈ 300ml</td><td>Leite morno (caseína)</td></tr>
+          <tr><td>Garrafa pequena</td><td>≈ 500ml</td><td>Pré-treino com Lipo Dry</td></tr>
+          <tr><td>Garrafa grande</td><td>≈ 1.000ml</td><td>Meta = 3–3,5 garrafas/dia</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="section-title">📊 Referência visual — proteína</p>
+  <div class="card">
+    <div class="card-body">
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Frango grelhado 150g</div><div class="meal-qty">≈ 37g prot.</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Sardinha 1 lata (125g)</div><div class="meal-qty">≈ 25g prot.</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Ovo inteiro</div><div class="meal-qty">≈ 6g prot.</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Clara de ovo</div><div class="meal-qty">≈ 3,6g prot.</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Whey 1 scoop (~30g)</div><div class="meal-qty">≈ 22–25g prot.</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Iogurte natural zero 200g</div><div class="meal-qty">≈ 18g prot.</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Creme de ricota 100g</div><div class="meal-qty">≈ 11g prot.</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Feijão/lentilha 80g coz.</div><div class="meal-qty">≈ 7g prot.</div></div>
     </div>
   </div>
 
   <p class="foot-note">Reavaliação: 10 de abril de 2026 · Plano JMeloDev v11</p>
 </div>
-
 
 <script>
 function showTab(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
   event.target.classList.add('active');
+}
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js'); });
 }
 </script>
 </body>

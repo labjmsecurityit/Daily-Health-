@@ -11,67 +11,50 @@
 <meta name="apple-mobile-web-app-title" content="Daily Health">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    background:#0D1117;
-    color:#E6EDF3;
-    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:24px 20px;
-  }
-  .logo { text-align:center; margin-bottom:48px; }
-  .logo-icon { font-size:52px; display:block; margin-bottom:12px; animation:pulse 2s ease-in-out infinite; }
-  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
-  .logo h1 { font-size:26px; font-weight:900; letter-spacing:2px; color:#F0A500; text-transform:uppercase; }
-  .logo p { font-size:12px; color:#8B949E; margin-top:4px; letter-spacing:1px; }
-  .menu { width:100%; max-width:360px; display:flex; flex-direction:column; gap:16px; }
-  .menu-card {
-    display:flex; align-items:center; gap:20px;
-    background:#161B22; border-radius:16px; padding:22px 20px;
-    text-decoration:none; color:#E6EDF3; border:1px solid #30363D;
-    transition:transform .15s; cursor:pointer; position:relative; overflow:hidden;
-  }
-  .menu-card:active { transform:scale(0.97); }
-  .menu-card.dieta { border-color:#F0A500; }
-  .menu-card.treino { border-color:#2EA043; }
-  .card-icon { font-size:40px; flex-shrink:0; width:60px; height:60px; display:flex; align-items:center; justify-content:center; border-radius:14px; background:#0D1117; }
-  .card-text { flex:1; }
-  .card-title { font-size:18px; font-weight:800; letter-spacing:.5px; }
-  .menu-card.dieta .card-title { color:#F0A500; }
-  .menu-card.treino .card-title { color:#2EA043; }
-  .card-desc { font-size:12px; color:#8B949E; margin-top:3px; line-height:1.4; }
-  .card-arrow { font-size:22px; color:#555; }
-  .footer { margin-top:48px; font-size:10px; color:#30363D; text-align:center; letter-spacing:1px; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0D1117;color:#E6EDF3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;}
+.logo{text-align:center;margin-bottom:48px;}
+.logo-icon{font-size:56px;display:block;margin-bottom:14px;animation:pulse 2.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.logo h1{font-size:28px;font-weight:900;letter-spacing:2px;color:#F0A500;text-transform:uppercase;}
+.logo p{font-size:12px;color:#8B949E;margin-top:5px;letter-spacing:1px;}
+.menu{width:100%;max-width:360px;display:flex;flex-direction:column;gap:14px;}
+.menu-card{display:flex;align-items:center;gap:20px;background:#161B22;border-radius:16px;padding:24px 20px;text-decoration:none;color:#E6EDF3;border:1px solid #30363D;transition:transform .15s;cursor:pointer;}
+.menu-card:active{transform:scale(.97);}
+.menu-card.dieta{border-color:#F0A500;}
+.card-icon{font-size:40px;flex-shrink:0;width:62px;height:62px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:#0D1117;}
+.card-text{flex:1;}
+.card-title{font-size:19px;font-weight:800;letter-spacing:.5px;color:#F0A500;}
+.card-desc{font-size:12px;color:#8B949E;margin-top:4px;line-height:1.4;}
+.card-arrow{font-size:22px;color:#555;}
+.stats{display:flex;gap:8px;margin-top:14px;width:100%;max-width:360px;}
+.stat-card{flex:1;background:#161B22;border:1px solid #30363D;border-radius:10px;padding:10px;text-align:center;}
+.stat-num{font-size:16px;font-weight:800;color:#F0A500;}
+.stat-lbl{font-size:10px;color:#8B949E;text-transform:uppercase;margin-top:2px;}
+.footer{margin-top:40px;font-size:10px;color:#30363D;text-align:center;letter-spacing:1px;}
 </style>
 </head>
 <body>
 <div class="logo">
   <span class="logo-icon">🏋️</span>
   <h1>Daily Health</h1>
-  <p>JARDESON — PLANO 60 DIAS</p>
+  <p>JARDESON · PLANO 60 DIAS</p>
 </div>
 <nav class="menu">
   <a class="menu-card dieta" href="dieta.html">
     <div class="card-icon">🍽️</div>
     <div class="card-text">
-      <div class="card-title">DIETA</div>
-      <div class="card-desc">Alimentação · Suplementos · Timing · Treino manhã</div>
-    </div>
-    <span class="card-arrow">›</span>
-  </a>
-  <a class="menu-card treino" href="treino.html">
-    <div class="card-icon">💪</div>
-    <div class="card-text">
-      <div class="card-title">TREINO</div>
-      <div class="card-desc">Treinos A–F · Cargas · Histórico · Evolução</div>
+      <div class="card-title">DIETA & SUPLEMENTOS</div>
+      <div class="card-desc">Alimentação · Suplementos · Naturais · Timing · Horários alternativos · Medidas</div>
     </div>
     <span class="card-arrow">›</span>
   </a>
 </nav>
+<div class="stats">
+  <div class="stat-card"><div class="stat-num">89,9kg</div><div class="stat-lbl">Peso inicial</div></div>
+  <div class="stat-card"><div class="stat-num">26,3%</div><div class="stat-lbl">Gordura</div></div>
+  <div class="stat-card"><div class="stat-num">60d</div><div class="stat-lbl">Plano</div></div>
+</div>
 <div class="footer">REAVALIAÇÃO: 10 ABR 2026 · v11</div>
 <script>
 if ('serviceWorker' in navigator) {
