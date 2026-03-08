@@ -166,6 +166,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   <button class="tab" onclick="showTab('alternativos')">🔄 Alternat.</button>
   <button class="tab" onclick="showTab('medidas')">📏 Medidas</button>
   <button class="tab" onclick="showTab('preparo')">🧪 Preparo</button>
+  <button class="tab" onclick="showTab('descanso')">🛌 Descanso</button>
 </div>
 
 <!-- ═══════════════════════════════
@@ -1006,7 +1007,191 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   <p class="foot-note">Reavaliação: 10 de abril de 2026 · Plano JMeloDev v11</p>
 </div>
 
+<!-- ═══════════════════════════════
+     ABA 8 — DESCANSO
+═══════════════════════════════ -->
+<div class="section" id="tab-descanso">
+
+  <!-- DETECTOR DE DIA -->
+  <div id="dia-detector" class="alert alert-orange" style="text-align:center;font-size:13px;font-weight:700"></div>
+
+  <!-- CHECKLIST RÁPIDO -->
+  <p class="section-title">✅ Checklist rápido — dia sem treino</p>
+  <div class="supp-card" style="border-color:#2EA043">
+    <div class="supp-header"><div class="supp-emoji">✅</div><div class="supp-info"><div class="supp-name">TOMAR — sem exceção</div><div class="supp-sub">Mesmo sem treinar, esses continuam</div></div></div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-label" style="color:#2EA043">✅ Creatina</span><span class="supp-value green">5g em água ou suco — qualquer horário da manhã<br><strong>CRÍTICO:</strong> a saturação muscular exige uso diário contínuo</span></div>
+      <div class="supp-row"><span class="supp-label" style="color:#2EA043">✅ Artiflex</span><span class="supp-value">Café da manhã + vitamina C (laranja/limão) — igual sempre</span></div>
+      <div class="supp-row"><span class="supp-label" style="color:#2EA043">✅ D3 Synergy</span><span class="supp-value">Café da manhã COM gordura (ovo/azeite) — igual sempre</span></div>
+      <div class="supp-row"><span class="supp-label" style="color:#2EA043">✅ ZMA</span><span class="supp-value">22h20 — 20 min após a caseína — igual sempre</span></div>
+      <div class="supp-row"><span class="supp-label" style="color:#2EA043">✅ Caseína 22h</span><span class="supp-value">Iogurte / ricota / leite — nunca pular, previne catabolismo noturno</span></div>
+    </div>
+  </div>
+
+  <div class="supp-card" style="border-color:#EF4444">
+    <div class="supp-header"><div class="supp-emoji">❌</div><div class="supp-info"><div class="supp-name">NÃO TOMAR — dia de descanso</div><div class="supp-sub">Sem treino = sem necessidade + riscos</div></div></div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-label" style="color:#EF4444">❌ Lipo Dry</span><span class="supp-value" style="color:#EF4444">Termogênico só faz sentido com gasto calórico do treino.<br>Sem treino: causa ansiedade, insônia e taquicardia sem benefício</span></div>
+      <div class="supp-row"><span class="supp-label" style="color:#EF4444">❌ L-Taurina</span><span class="supp-value" style="color:#EF4444">Funciona como suporte ao treino — desnecessária no descanso</span></div>
+      <div class="supp-row"><span class="supp-label" style="color:#EF4444">❌ Whey Protein</span><span class="supp-value" style="color:#EF4444">Sem pós-treino = sem janela anabólica. Prefira proteína real da dieta</span></div>
+    </div>
+  </div>
+
+  <!-- DOMINGO -->
+  <p class="section-title">🌅 Domingo — Refeição em família (mais livre)</p>
+  <div class="alert alert-orange">
+    💡 <strong>Filosofia:</strong> domingo é descanso e convívio. Não sabote as relações por causa da dieta. Uma refeição em família não desfaz uma semana de foco.
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">☀️</span>
+      <span class="title">Café da manhã — horário flexível</span>
+      <span class="time">quando acordar</span>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-blue" style="font-size:11px;margin-bottom:8px">💤 Fim de semana — acorde naturalmente, sem alarme. Café da manhã quando tiver pronto.</div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Omelete 4 claras + 1 ovo + aveia + chia + canela</div><div class="meal-qty">~390 kcal</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Fruta: banana, maçã ou laranja (vitamina C p/ Artiflex)</div><div class="meal-qty">1 unid.</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#3B82F6"></div><div class="meal-text" style="color:#3B82F6"><strong>💊 Artiflex + D3 Synergy</strong> — COM o ovo, mesmo horário</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text" style="color:#2EA043"><strong>⚗️ Creatina 5g</strong> — hoje pode ser aqui mesmo no café</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🍽️</span>
+      <span class="title">Almoço em família — regras inteligentes</span>
+      <span class="time">12h–14h</span>
+      <span class="kcal">~550–700 kcal</span>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-green" style="font-size:11px;margin-bottom:8px">✅ Come junto com a família. Use as regras abaixo para não sair do trilho sem estressar ninguém.</div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text"><strong>Proteína primeiro</strong> — frango, carne, peixe, ovo. Monte o prato começando pela proteína.</div><div class="meal-qty">150–200g</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text"><strong>Salada e legumes</strong> — à vontade, sem culpa</div><div class="meal-qty">livre</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#F0A500"></div><div class="meal-text"><strong>Arroz, feijão, macarrão</strong> — pode comer, porção moderada</div><div class="meal-qty">80–100g</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#EF4444"></div><div class="meal-text"><strong>Evitar:</strong> frituras, refrigerante, sobremesa pesada</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#F0A500"></div><div class="meal-text"><strong>Se tiver sobremesa</strong> — porção pequena, sem culpa, só não repita</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🌆</span>
+      <span class="title">Tarde / Lanche</span>
+      <span class="time">15h–17h</span>
+      <span class="kcal">~200–250 kcal</span>
+    </div>
+    <div class="card-body">
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">2 ovos cozidos + fruta</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">OU iogurte natural zero + chia + cacau</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">OU sardinha + biscoito integral</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🍗</span>
+      <span class="title">Janta</span>
+      <span class="time">19h–20h</span>
+      <span class="kcal">~380–420 kcal</span>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-orange" style="font-size:11px;margin-bottom:8px">⚠️ Sem pré e pós-treino hoje — distribua as calorias economizadas (~540 kcal) entre almoço e janta se tiver fome, ou mantenha o déficit maior hoje.</div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Frango ou carne magra</div><div class="meal-qty">150g</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Batata doce ou arroz</div><div class="meal-qty">60–80g</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Legumes à vontade</div><div class="meal-qty">livre</div></div>
+      <div class="meal-item"><div class="meal-dot"></div><div class="meal-text">Azeite</div><div class="meal-qty">1 col chá</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" style="border-bottom-color:#A855F7">
+      <span class="icon">🌙</span>
+      <span class="title" style="color:#A855F7">Caseína + ZMA — igual sempre</span>
+      <span class="time">22h</span>
+    </div>
+    <div class="card-body">
+      <div class="meal-item"><div class="meal-dot" style="background:#A855F7"></div><div class="meal-text">Iogurte zero / ricota / leite morno + chia + cacau + canela</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#A855F7"></div><div class="meal-text" style="color:#A855F7"><strong>⏳ 20 min → ZMA em água</strong> — nunca pular, mesmo no domingo</div></div>
+    </div>
+  </div>
+
+  <!-- FALTA EVENTUAL -->
+  <p class="section-title">⚡ Falta eventual — seg a sex ou viagem</p>
+  <div class="alert alert-blue">
+    📌 <strong>Regra simples:</strong> um dia sem treinar não é catástrofe. Siga o protocolo abaixo e retome normalmente no próximo dia.
+  </div>
+
+  <div class="supp-card">
+    <div class="supp-header"><div class="supp-emoji">📋</div><div class="supp-info"><div class="supp-name">PROTOCOLO FALTA EVENTUAL</div><div class="supp-sub">Qualquer dia seg–sex que não treinar</div></div></div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-label">Refeições</span><span class="supp-value">Manter café, lanche, almoço e janta normais. Remover pré-treino e pós-treino.</span></div>
+      <div class="supp-row"><span class="supp-label" style="color:#2EA043">✅ Manter</span><span class="supp-value green">Creatina · Artiflex · D3 · ZMA · Caseína 22h</span></div>
+      <div class="supp-row"><span class="supp-label" style="color:#EF4444">❌ Suspender</span><span class="supp-value" style="color:#EF4444">Lipo Dry · Taurina · Whey</span></div>
+      <div class="supp-row"><span class="supp-label">Calorias</span><span class="supp-value">Ficam ~540 kcal abaixo do normal (sem pré+pós). Déficit maior = resultado acelera.</span></div>
+      <div class="supp-row"><span class="supp-label">⚠️ Não compensar</span><span class="supp-value" style="color:#F0A500">Não tente fazer dois treinos no dia seguinte. Retome normalmente.</span></div>
+    </div>
+  </div>
+
+  <!-- VIAGEM -->
+  <div class="supp-card" style="border-color:#3B82F6">
+    <div class="supp-header"><div class="supp-emoji">✈️</div><div class="supp-info"><div class="supp-name">VIAGEM OU COMPROMISSO IMPREVISTO</div><div class="supp-sub">Dias consecutivos sem academia</div></div></div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-label" style="color:#2EA043">✅ Sempre levar</span><span class="supp-value green">Creatina (zip lock com 5g pré-medidos por dia) · ZMA · Artiflex · D3</span></div>
+      <div class="supp-row"><span class="supp-label" style="color:#EF4444">❌ Deixar em casa</span><span class="supp-value" style="color:#EF4444">Lipo Dry · Whey (pesado) · Taurina</span></div>
+      <div class="supp-row"><span class="supp-label">Proteína viagem</span><span class="supp-value">Ovos, frango grelhado, sardinha, iogurte — fontes naturais em qualquer lugar</span></div>
+      <div class="supp-row"><span class="supp-label">Treino alternativo</span><span class="supp-value">Hotel com academia: faça o treino do dia · Sem academia: 20 min bodyweight (agachamento, flexão, prancha, abdominal)</span></div>
+      <div class="supp-row"><span class="supp-label">Creatina viagem</span><span class="supp-value" style="color:#2EA043">Separe a dose diária em sachês ou zip locks antes de viajar — 5g por dia, sem balança necessária</span></div>
+    </div>
+  </div>
+
+  <!-- TIMELINE DOMINGO -->
+  <p class="section-title">🗓️ Timeline do domingo — horários flexíveis</p>
+  <div class="card">
+    <div class="card-body">
+      <div class="tl-item"><div class="tl-dot" style="background:#F0A500"></div><div class="tl-body"><div class="tl-time">Quando acordar</div><div class="tl-label">☀️ Café da manhã</div><div class="tl-supp">+ Artiflex + D3 Synergy + Creatina 5g</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#8B949E"></div><div class="tl-body"><div class="tl-time">12h–14h</div><div class="tl-label">🍽️ Almoço em família</div><div class="tl-sub">Proteína primeiro · porção moderada de carboidrato · sem fritura</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#8B949E"></div><div class="tl-body"><div class="tl-time">15h–17h</div><div class="tl-label">🥚 Lanche da tarde</div><div class="tl-sub">2 ovos + fruta OU iogurte + chia + cacau</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#8B949E"></div><div class="tl-body"><div class="tl-time">19h–20h</div><div class="tl-label">🍗 Janta</div><div class="tl-sub">Frango/carne + legumes + batata doce/arroz + azeite</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#A855F7"></div><div class="tl-body"><div class="tl-time" style="color:#A855F7">22h00</div><div class="tl-label">🌙 Caseína + chia + cacau</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#A855F7"></div><div class="tl-body"><div class="tl-time" style="color:#A855F7">22h20</div><div class="tl-label">💊 ZMA em água</div></div></div>
+    </div>
+  </div>
+
+  <!-- CALORIA -->
+  <p class="section-title">📊 O que muda nas calorias no descanso</p>
+  <div class="card">
+    <div class="card-body">
+      <div class="meal-item"><div class="meal-dot" style="background:#EF4444"></div><div class="meal-text">Sem pré-treino (batata doce + frango)</div><div class="meal-qty">−280 kcal</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#EF4444"></div><div class="meal-text">Sem pós-treino (Whey + banana)</div><div class="meal-qty">−260 kcal</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#F0A500"></div><div class="meal-text"><strong>Total removido</strong></div><div class="meal-qty" style="color:#F0A500">−540 kcal</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#2EA043"></div><div class="meal-text"><strong>Resultado:</strong> déficit naturalmente maior — ótimo para perda de gordura</div></div>
+      <div class="meal-item"><div class="meal-dot" style="background:#3B82F6"></div><div class="meal-text">Se tiver muita fome: adicione 1 lanche extra (ovos ou iogurte) — sem exagerar</div></div>
+    </div>
+  </div>
+
+  <p class="foot-note">Reavaliação: 10 de abril de 2026 · Plano JMeloDev v12</p>
+</div>
+
 <script>
+// Detector de dia — mostra se hoje é treino ou descanso
+(function(){
+  const dias = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+  const treinos = { 1:'A — Pernas + Glúteo', 2:'B — Push', 3:'C — Pull', 4:'D — Pernas Post.+Core', 5:'E — Ombros+Braços+Core', 6:'F — Full Body (opcional)' };
+  const d = new Date().getDay();
+  const el = document.getElementById('dia-detector');
+  if(!el) return;
+  if(d === 0){
+    el.textContent = '🛌 Hoje é Domingo — Dia de Descanso Total';
+    el.className = 'alert alert-red';
+  } else if(treinos[d]){
+    el.textContent = '🏋️ Hoje é ' + dias[d] + ' — Treino ' + treinos[d];
+    el.className = 'alert alert-green';
+    el.style.display = 'block';
+  }
+})();
+
 function showTab(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
